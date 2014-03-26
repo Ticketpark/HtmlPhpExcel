@@ -4,6 +4,11 @@ namespace Ticketpark\HtmlPhpExcel\Elements\Base;
 
 use Doctrine\Common\Collections\ArrayCollection;
 
+/**
+ * Base Element
+ *
+ * @author Manuel Reinhard <manu@sprain.ch>
+ */
 class BaseElement
 {
     /**
