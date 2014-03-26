@@ -66,7 +66,7 @@ Example:
 ```html
 <table>
     <tr _excel-dimensions='{"row":{"rowHeight":50}}'>
-        <td _excel-dimensions='{"column":{"width":20}'>Foo</td>
+        <td _excel-dimensions='{"column":{"width":20}}'>Foo</td>
     </tr>
 </table>
 ```
