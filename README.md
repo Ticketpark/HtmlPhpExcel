@@ -5,6 +5,7 @@ This is a php library based on [PHPExcel](https://phpexcel.codeplex.com/) which 
 
 ## Todos
 * Write tests
+* Write documentation for usage of table class, row class and cell class filtering.
 
 ## Installation
 
