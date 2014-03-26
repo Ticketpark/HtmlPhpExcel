@@ -21,7 +21,7 @@ Add HtmlPhpExcel in your composer.json:
 Now tell composer to download the bundle by running the command:
 
 ``` bash
-$ php composer.phar update "ticketpark/htmlphpexcel
+$ php composer.phar update ticketpark/htmlphpexcel
 ```
 
 ## Simple example
@@ -66,7 +66,7 @@ Example:
 ```html
 <table>
     <tr _excel-dimensions='{"row":{"rowHeight":50}}'>
-        <td  _excel-dimensions='{"column":{"width":20}'>Foo</td>
+        <td _excel-dimensions='{"column":{"width":20}'>Foo</td>
     </tr>
 </table>
 ```
