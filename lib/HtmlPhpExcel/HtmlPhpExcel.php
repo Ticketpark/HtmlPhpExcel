@@ -48,11 +48,11 @@ class HtmlPhpExcel
     protected $cellClass;
 
     /**
-     * The PHPExcel document to be generated with this class
+     * The PHPExcel instance generated with this class
      *
      * @var \PHPExcel
      */
-    protected $excelDocument;
+    protected $phpexcel;
 
     /**
      * Constructor
