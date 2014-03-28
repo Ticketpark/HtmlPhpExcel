@@ -6,6 +6,7 @@ use Ticketpark\HtmlPhpExcel\Elements\Cell;
 use Ticketpark\HtmlPhpExcel\Elements\Document;
 use Ticketpark\HtmlPhpExcel\Elements\Row;
 use Ticketpark\HtmlPhpExcel\Elements\Table;
+use Ticketpark\HtmlPhpExcel\Exception\HtmlPhpExcelException;
 
 /**
  * HTML Parser
@@ -133,6 +134,10 @@ class Parser {
      */
     public function parse()
     {
+        if (null === $this->html) {
+            throw new HtmlPhpExcelException('You must provide html content first. Use setHtml() or setHtmlFile().');
+        }
+
         $dom = new \DOMDocument();
         $dom->loadHTML($this->html);
 
