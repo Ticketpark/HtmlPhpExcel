@@ -55,6 +55,13 @@ class HtmlPhpExcel
     protected $phpexcel;
 
     /**
+     * The document instance which contains the parsed html elements
+     *
+     * @var \Ticketpark\HtmlPhpExcel\Elements\Document
+     */
+    protected $document;
+
+    /**
      * Constructor
      *
      * @param string|null $htmlStringOrFile
@@ -108,8 +115,8 @@ class HtmlPhpExcel
      */
     public function process()
     {
-        $document = $this->parseHtml();
-        $this->phpexcel = $this->createExcel($document);
+        $this->parseHtml();
+        $this->createExcel();
 
         return $this;
     }
@@ -184,28 +191,39 @@ class HtmlPhpExcel
             ->setCellClass($this->cellClass)
             ->parse();
 
+        $this->document = $document;
+
         return $document;
+    }
+
+    /**
+     * Get the Document instance
+     *
+     * @return \Ticketpark\HtmlPhpExcel\Elements\Document
+     */
+    public function getDocument()
+    {
+        return $this->document;
     }
 
     /**
      * Create excel from document
      *
-     * @param \Ticketpark\HtmlPhpExcel\Elements\Document $document
      * @return \PHPExcel
      */
-    protected function createExcel(Document $document)
+    protected function createExcel()
     {
-        $excelDocument = new \PHPExcel();
+        $this->phpexcel = new \PHPExcel();
         $tableNumber = 0;
 
         // Loop over all tables in document
-        foreach($document->getTables() as $table){
+        foreach($this->document->getTables() as $table){
 
             // Handle worksheets
             if ($tableNumber > 0) {
-                $excelDocument->createSheet();
+                $this->phpexcel->createSheet();
             }
-            $excelWorksheet = $excelDocument->setActiveSheetIndex($tableNumber);
+            $excelWorksheet = $this->phpexcel->setActiveSheetIndex($tableNumber);
             if ($sheetTitle = $table->getAttribute('_excel-name')) {
                 $excelWorksheet->setTitle($sheetTitle);
             }
@@ -240,7 +258,7 @@ class HtmlPhpExcel
             $tableNumber++;
         }
 
-        return $excelDocument;
+        return $this->phpexcel;
     }
 
 
