@@ -203,6 +203,10 @@ class HtmlPhpExcel
      */
     public function getDocument()
     {
+        if (!$this->phpexcel instanceof \PHPExcel) {
+            throw new HtmlPhpExcelException('You must run process() first to get ');
+        }
+
         return $this->document;
     }
 
