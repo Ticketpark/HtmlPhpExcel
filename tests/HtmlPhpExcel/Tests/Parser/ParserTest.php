@@ -4,8 +4,13 @@ namespace HtmlPhpExcel\Tests\Parser;
 
 use Ticketpark\HtmlPhpExcel\Parser\Parser;
 
-class ClassLoaderTest extends \PHPUnit_Framework_TestCase
+class ParserTest extends \PHPUnit_Framework_TestCase
 {
+    public function setUp()
+    {
+        $this->pathToTestfiles = __DIR__.'/../../../testfiles/';
+    }
+
     public function testSimpleTable()
     {
         $parser = new Parser('<table><tr><td>row1cell1</td><td>row1cell2</td></tr><tr><td>row2cell1</td><td>row2cell2</td></tr></table>');
@@ -179,7 +184,7 @@ class ClassLoaderTest extends \PHPUnit_Framework_TestCase
     public function testSetHtmlFile()
     {
         $parser = new Parser();
-        $parser->setHtmlFile(__DIR__.'/test.html');
+        $parser->setHtmlFile($this->pathToTestfiles.'test.html');
         $document = $parser->parse();
         $this->assertEquals(1, $document->getTables()->count());
     }
