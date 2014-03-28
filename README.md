@@ -5,6 +5,7 @@ This is a php library based on [PHPExcel](https://phpexcel.codeplex.com/) which 
 
 ## Todos
 * Write documentation for usage of table class, row class and cell class filtering.
+* Write documentation for usage of `utf8EncodeValues()` and `utf8DecodeValues()`
 
 ## Installation
 

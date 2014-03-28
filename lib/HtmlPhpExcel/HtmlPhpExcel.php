@@ -62,6 +62,13 @@ class HtmlPhpExcel
     protected $document;
 
     /**
+     * Determines if the values should be encoded in some way before writing to the excel cell
+     *
+     * @var null|string
+     */
+    protected $changeEncoding;
+
+    /**
      * Constructor
      *
      * @param string|null $htmlStringOrFile
@@ -179,6 +186,36 @@ class HtmlPhpExcel
     }
 
     /**
+     * Get the Document instance
+     *
+     * @return \Ticketpark\HtmlPhpExcel\Elements\Document
+     */
+    public function getDocument()
+    {
+        if (!$this->phpexcel instanceof \PHPExcel) {
+            throw new HtmlPhpExcelException('You must run process() first to get ');
+        }
+
+        return $this->document;
+    }
+
+    /**
+     * UTF8-encode values before writing to excel cell
+     */
+    public function utf8EncodeValues()
+    {
+        $this->changeEncoding = 'utf8_encode';
+    }
+
+    /**
+     * UTF8-decode values before writing to excel cell
+     */
+    public function utf8DecodeValues()
+    {
+        $this->changeEncoding = 'utf8_decode';
+    }
+
+    /**
      * Parse the html and return document
      *
      * @return \Ticketpark\HtmlPhpExcel\Elements\Document
@@ -194,20 +231,6 @@ class HtmlPhpExcel
         $this->document = $document;
 
         return $document;
-    }
-
-    /**
-     * Get the Document instance
-     *
-     * @return \Ticketpark\HtmlPhpExcel\Elements\Document
-     */
-    public function getDocument()
-    {
-        if (!$this->phpexcel instanceof \PHPExcel) {
-            throw new HtmlPhpExcelException('You must run process() first to get ');
-        }
-
-        return $this->document;
     }
 
     /**
@@ -246,7 +269,7 @@ class HtmlPhpExcel
 
                     $excelWorksheet->setCellValue(
                         $excelCellIndex,
-                        $cell->getValue(),
+                        $this->changeValueEncoding($cell->getValue()),
                         true
                     );
 
@@ -426,6 +449,20 @@ class HtmlPhpExcel
             $parts = explode('::', $value);
             $class = new \ReflectionClass($parts[0]);
             $value = $class->getConstant($parts[1]);
+        }
+
+        return $value;
+    }
+
+    /**
+     * Apply modifications to value before writing to excel cell
+     *
+     * @param mixed $value
+     */
+    protected function changeValueEncoding($value)
+    {
+        if (null !== $this->changeEncoding) {
+            $value = call_user_func($this->changeEncoding, $value);
         }
 
         return $value;
