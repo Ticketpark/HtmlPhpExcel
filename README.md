@@ -72,6 +72,17 @@ Example:
 </table>
 ```
 
+* `_excel-explicit`<br>Supports applying an explicit cell value type.
+
+Example:
+```html
+<table>
+    <tr>
+        <td _excel-explicit='PHPExcel_Cell_DataType::TYPE_STRING'>0022</td>
+    </tr>
+</table>
+```
+
 ## License
 This bundle is under the MIT license. See the complete license in the bundle:
 

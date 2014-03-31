@@ -267,11 +267,20 @@ class HtmlPhpExcel
                 foreach($row->getCells() as $cell){
                     $excelCellIndex = \PHPExcel_Cell::stringFromColumnIndex($cellNumber).$rowNumber;
 
-                    $excelWorksheet->setCellValue(
-                        $excelCellIndex,
-                        $this->changeValueEncoding($cell->getValue()),
-                        true
-                    );
+                    if ($explicitCellType = $cell->getAttribute('_excel-explicit') || $explicitCellType = $row->getAttribute('_excel-explicit')) {
+                        $excelWorksheet->setCellValueExplicit(
+                            $excelCellIndex,
+                            $this->changeValueEncoding($cell->getValue()),
+                            $this->convertStaticPhpExcelConstantsFromStringsToConstants($explicitCellType),
+                            true
+                        );
+                    } else {
+                        $excelWorksheet->setCellValue(
+                            $excelCellIndex,
+                            $this->changeValueEncoding($cell->getValue()),
+                            true
+                        );
+                    }
 
                     $excelWorksheet->getStyle($excelCellIndex)->applyFromArray($this->getCellStylesArray($cell));
                     $this->setDimensions($excelWorksheet, $excelWorksheet->getCell($excelCellIndex), $cell);
