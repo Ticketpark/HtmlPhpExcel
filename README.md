@@ -14,7 +14,7 @@ Add HtmlPhpExcel in your composer.json:
 ```js
 {
     "require": {
-        "ticketpark/htmlphpexcel": "0.1"
+        "ticketpark/htmlphpexcel": "0.3.1"
     }
 }
 ```
