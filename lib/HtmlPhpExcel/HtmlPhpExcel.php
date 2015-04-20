@@ -145,22 +145,18 @@ class HtmlPhpExcel
     /**
      * Output the created excel file
      *
-     * @param string $excelWriterType
+     * @param string $filename The name of the output file
+     * @param string $excelWriterType Excel file type
      * @throws Exception\HtmlPhpExcelException
      */
-    public function output($filename = null, $excelWriterType = 'Excel2007')
+    public function output($filename = 'excel.xls', $excelWriterType = 'Excel2007')
     {
         if (!$this->phpexcel instanceof \PHPExcel) {
             throw new HtmlPhpExcelException('You must run process() first to create a phpexcel instance');
         }
 
-        if (null == $filename) {
-            $filename = 'excel.xls';
-        }
-
         header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
         header('Content-Disposition: attachment;filename="'.$filename.'"');
-        header('Cache-Control: max-age=0');
         header('Cache-Control: max-age=1');
 
         $writer = \PHPExcel_IOFactory::createWriter($this->phpexcel, $excelWriterType);
