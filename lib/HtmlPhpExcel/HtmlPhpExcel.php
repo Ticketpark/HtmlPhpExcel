@@ -263,6 +263,7 @@ class HtmlPhpExcel
                 foreach($row->getCells() as $cell){
                     $excelCellIndex = \PHPExcel_Cell::stringFromColumnIndex($cellNumber).$rowNumber;
 
+                    // Set value
                     if ($explicitCellType = $cell->getAttribute('_excel-explicit') || $explicitCellType = $row->getAttribute('_excel-explicit')) {
                         $excelWorksheet->setCellValueExplicit(
                             $excelCellIndex,
