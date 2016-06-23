@@ -1,10 +1,9 @@
 #HtmlPhpExcel
 This is a php library based on [PHPExcel](https://phpexcel.codeplex.com/) which simplifies converting html tables to excel files. It allows styling right within the html template with specific attributes.
 
-*Please note:* This is a very early version of this library. Use on your own risk.
-
 ## Todos
-* Write documentation for usage of table class, row class and cell class filtering.
+* Write documentation for usage of table class, row class and cell class filtering
+* Write documentation for cell merging functionalities
 * Write documentation for usage of `utf8EncodeValues()` and `utf8DecodeValues()`
 
 ## Installation
