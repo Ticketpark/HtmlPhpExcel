@@ -75,7 +75,7 @@ class HtmlPhpExcel
      */
     public function __construct($htmlStringOrFile)
     {
-       $this->htmlStringOrFile = $htmlStringOrFile;
+        $this->htmlStringOrFile = $htmlStringOrFile;
     }
 
     /**
