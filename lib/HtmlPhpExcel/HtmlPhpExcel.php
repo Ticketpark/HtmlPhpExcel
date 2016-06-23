@@ -282,6 +282,18 @@ class HtmlPhpExcel
                         );
                     }
 
+                    // Merge cells
+                    $colspan = $cell->getAttribute('colspan');
+                    $rowspan = $cell->getAttribute('rowspan');
+
+                    if ($colspan || $rowspan) {
+                        if ($colspan) {$colspan = $colspan - 1;}
+                        if ($rowspan) {$rowspan = $rowspan - 1;}
+                        $mergeCellsTargetCellIndex = \PHPExcel_Cell::stringFromColumnIndex($cellNumber + $colspan).($rowNumber + $rowspan);
+                        $excelWorksheet->mergeCells($excelCellIndex.':'.$mergeCellsTargetCellIndex);
+                    }
+
+                    // Set styles
                     $excelWorksheet->getStyle($excelCellIndex)->applyFromArray($this->getCellStylesArray($cell));
                     $this->setDimensions($excelWorksheet, $excelWorksheet->getCell($excelCellIndex), $cell);
 
