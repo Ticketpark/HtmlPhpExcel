@@ -1,5 +1,5 @@
 #HtmlPhpExcel
-This is a php library based on [PHPExcel](https://phpexcel.codeplex.com/) which simplifies converting html tables to excel files. It allows styling right within the html template with specific attributes.
+This is a php library based on [PHPExcel](https://github.com/PHPOffice/PHPExcel) which simplifies converting html tables to excel files. It allows styling right within the html template with specific attributes.
 
 ## Todos
 * Write documentation for usage of table class, row class and cell class filtering
@@ -8,21 +8,12 @@ This is a php library based on [PHPExcel](https://phpexcel.codeplex.com/) which 
 
 ## Installation
 
-Add HtmlPhpExcel in your composer.json:
+Add HtmlPhpExcel to your composer.json:
 
-```js
-{
-    "require": {
-        "ticketpark/htmlphpexcel": "0.3.1"
-    }
-}
+```
+composer require ticketpark/htmlphpexcel
 ```
 
-Now tell composer to download the bundle by running the command:
-
-``` bash
-$ php composer.phar update ticketpark/htmlphpexcel
-```
 
 ## Simple example
 ```php
