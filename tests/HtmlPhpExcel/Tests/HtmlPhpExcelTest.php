@@ -90,7 +90,7 @@ class HtmlPhpExcelTest extends \PHPUnit_Framework_TestCase
     /**
      * @expectedException \Ticketpark\HtmlPhpExcel\Exception\HtmlPhpExcelException
      */
-    public function testExceptiongetDocumentWithoutProcess()
+    public function testExceptionGetDocumentWithoutProcess()
     {
         $htmlphpexcel = new HtmlPhpExcel('<table></table>');
         $htmlphpexcel->getDocument();

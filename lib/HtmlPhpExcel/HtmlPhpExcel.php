@@ -15,7 +15,6 @@ use Ticketpark\HtmlPhpExcel\Parser\Parser;
  */
 class HtmlPhpExcel
 {
-
     /**
      * The string or file containing the html to be parsed
      *
@@ -119,6 +118,8 @@ class HtmlPhpExcel
 
     /**
      * Let's put things together!
+     *
+     * @return $this
      */
     public function process()
     {
@@ -268,14 +269,12 @@ class HtmlPhpExcel
                         $excelWorksheet->setCellValueExplicit(
                             $excelCellIndex,
                             $this->changeValueEncoding($cell->getValue()),
-                            $this->convertStaticPhpExcelConstantsFromStringsToConstants($explicitCellType),
-                            true
+                            $this->convertStaticPhpExcelConstantsFromStringsToConstants($explicitCellType)
                         );
                     } else {
                         $excelWorksheet->setCellValue(
                             $excelCellIndex,
-                            $this->changeValueEncoding($cell->getValue()),
-                            true
+                            $this->changeValueEncoding($cell->getValue())
                         );
                     }
 
@@ -305,7 +304,6 @@ class HtmlPhpExcel
 
         return $this->phpexcel;
     }
-
 
     /**
      * Set dimensions of row or column
