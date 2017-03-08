@@ -8,21 +8,12 @@ This is a php library based on [PHPExcel](https://phpexcel.codeplex.com/) which 
 
 ## Installation
 
-Add HtmlPhpExcel in your composer.json:
+Add HtmlPhpExcel to your composer.json:
 
-```js
-{
-    "require": {
-        "ticketpark/htmlphpexcel": "0.3.1"
-    }
-}
+```
+composer require ticketpark/htmlphpexcel
 ```
 
-Now tell composer to download the bundle by running the command:
-
-``` bash
-$ php composer.phar update ticketpark/htmlphpexcel
-```
 
 ## Simple example
 ```php
