@@ -1,4 +1,5 @@
-#HtmlPhpExcel
+# HtmlPhpExcel
+
 This is a php library based on [PHPExcel](https://github.com/PHPOffice/PHPExcel) which simplifies converting html tables to excel files. It allows styling right within the html template with specific attributes.
 
 ## Todos
