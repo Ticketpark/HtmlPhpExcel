@@ -264,7 +264,7 @@ class HtmlPhpExcel
                 foreach($row->getCells() as $cell){
                     $excelCellIndex = \PHPExcel_Cell::stringFromColumnIndex($cellNumber).$rowNumber;
                     
-                    // If in merge range, then jump the cell.
+                    // Skip cells withing merge range
                     while ($excelWorksheet->getCell($excelCellIndex)->isInMergeRange()) {
                         $cellNumber++;
                         $excelCellIndex = \PHPExcel_Cell::stringFromColumnIndex($cellNumber).$rowNumber;
