@@ -271,7 +271,12 @@ class HtmlPhpExcel
                     }
                     
                     // Set value
-                    if ($explicitCellType = $cell->getAttribute('_excel-explicit') || $explicitCellType = $row->getAttribute('_excel-explicit')) {
+                    $explicitCellType = $cell->getAttribute('_excel-explicit');
+                    if (!$explicitCellType) {
+                        $explicitCellType = $row->getAttribute('_excel-explicit');
+                    }
+
+                    if ($explicitCellType) {
                         $excelWorksheet->setCellValueExplicit(
                             $excelCellIndex,
                             $this->changeValueEncoding($cell->getValue()),
