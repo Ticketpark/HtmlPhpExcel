@@ -263,7 +263,13 @@ class HtmlPhpExcel
                 $cellNumber = 0;
                 foreach($row->getCells() as $cell){
                     $excelCellIndex = \PHPExcel_Cell::stringFromColumnIndex($cellNumber).$rowNumber;
-
+                    
+                    // If in merge range, then jump the cell.
+                    while ($excelWorksheet->getCell($excelCellIndex)->isInMergeRange()) {
+                        $cellNumber++;
+                        $excelCellIndex = \PHPExcel_Cell::stringFromColumnIndex($cellNumber).$rowNumber;
+                    }
+                    
                     // Set value
                     if ($explicitCellType = $cell->getAttribute('_excel-explicit') || $explicitCellType = $row->getAttribute('_excel-explicit')) {
                         $excelWorksheet->setCellValueExplicit(
