@@ -2,12 +2,12 @@
 <phpunit colors="true" bootstrap="vendor/autoload.php">
     <testsuites>
         <testsuite name="HtmlPhpExcel">
-            <directory>./Tests</directory>
+            <directory>./tests</directory>
         </testsuite>
     </testsuites>
     <filter>
         <whitelist>
-            <directory>./Tests</directory>
+            <directory>./tests</directory>
         </whitelist>
     </filter>
 </phpunit>
