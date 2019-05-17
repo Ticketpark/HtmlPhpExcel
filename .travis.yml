@@ -1,13 +1,17 @@
 language: php
 
 php:
-  - 5.6
   - 7.1
   - 7.2
   - 7.3
 
+env:
+  matrix:
+    - PREFER_LOWEST="--prefer-lowest"
+    - PREFER_LOWEST=""
+
 before_script:
-  - composer install --prefer-source
+  - composer update --prefer-source $PREFER_LOWEST
 
 script:
   - vendor/bin/phpunit
