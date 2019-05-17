@@ -18,31 +18,17 @@ class BaseElement
      */
     protected $attributes;
 
-    /**
-     * Constructor
-     */
     public function __construct()
     {
         $this->attributes = new ArrayCollection();
     }
 
-    /**
-     * Add an attribute
-     *
-     * @param string $name
-     * @param string $value
-     */
-    public function addAttribute($key, $value)
+    public function addAttribute(string $key, string $value): void
     {
         $this->attributes->set($key, $value);
     }
 
-    /**
-     * Get single attribute
-     *
-     * @return string
-     */
-    public function getAttribute($key)
+    public function getAttribute($key): ?string
     {
         return $this->attributes->get($key);
     }

@@ -66,21 +66,21 @@ class Parser {
         return $this;
     }
 
-    public function setTableClass(string $class): self
+    public function setTableClass(string $class = null): self
     {
         $this->tableClass = $class;
 
         return $this;
     }
 
-    public function setRowClass(string $class): self
+    public function setRowClass(string $class = null): self
     {
         $this->rowClass = $class;
 
         return $this;
     }
 
-    public function setCellClass(string $class): self
+    public function setCellClass(string $class = null): self
     {
         $this->cellClass = $class;
 
