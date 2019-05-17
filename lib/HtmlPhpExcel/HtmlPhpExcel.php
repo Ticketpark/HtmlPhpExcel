@@ -149,7 +149,7 @@ class HtmlPhpExcel
         return $this;
     }
 
-    private function parseHtml(): HtmlPhpExcelElement\Document
+    private function parseHtml(): void
     {
         $parser = new Parser($this->htmlStringOrFile);
         $document = $parser->setTableClass($this->tableClass)
@@ -158,11 +158,9 @@ class HtmlPhpExcel
             ->parse();
 
         $this->document = $document;
-
-        return $document;
     }
 
-    private function createExcel(): Spreadsheet
+    private function createExcel(): void
     {
         $this->spreadsheet = new Spreadsheet();
         $tableNumber = 0;
@@ -239,8 +237,6 @@ class HtmlPhpExcel
 
             $tableNumber++;
         }
-
-        return $this->spreadsheet;
     }
 
     private function setDimensionsForRow(Worksheet $excelWorksheet, Row $excelElement, HtmlPhpExcelElement\Document $documentElement): void
