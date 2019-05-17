@@ -9,7 +9,7 @@
         {"name": "Manuel Reinhard", "email": "manu@sprain.ch"}
     ],
     "require": {
-        "php": ">=5.6",
+        "php": ">=7.1",
         "doctrine/common": "~2.4",
         "phpoffice/phpspreadsheet": "^1.6"
     },

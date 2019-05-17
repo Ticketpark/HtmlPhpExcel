@@ -8,14 +8,10 @@ use PhpOffice\PhpSpreadsheet\IOFactory;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 use PhpOffice\PhpSpreadsheet\Worksheet\Row;
+use Ticketpark\HtmlPhpExcel\Elements\Document;
 use Ticketpark\HtmlPhpExcel\Exception\HtmlPhpExcelException;
 use Ticketpark\HtmlPhpExcel\Parser\Parser;
 
-/**
- * HtmlPhpExcel
- *
- * @author Manuel Reinhard <manu@sprain.ch>
- */
 class HtmlPhpExcel
 {
     /**
@@ -23,7 +19,7 @@ class HtmlPhpExcel
      *
      * @var string
      */
-    protected $htmlStringOrFile;
+    private $htmlStringOrFile;
 
     /**
      * The class attribute the tables must have to be parsed
@@ -31,7 +27,7 @@ class HtmlPhpExcel
      *
      * @var string
      */
-    protected $tableClass;
+    private $tableClass;
 
     /**
      * The class attribute the rows (<tr>) must have to be parsed.
@@ -39,7 +35,7 @@ class HtmlPhpExcel
      *
      * @var string
      */
-    protected $rowClass;
+    private $rowClass;
 
     /**
      * The class attribute the rows (<td> or <th>) must have to be parsed.
@@ -47,84 +43,56 @@ class HtmlPhpExcel
      *
      * @var string
      */
-    protected $cellClass;
+    private $cellClass;
 
     /**
      * The Spreadsheet instance generated with this class
      *
      * @var Spreadsheet
      */
-    protected $spreadsheet;
+    private $spreadsheet;
 
     /**
      * The document instance which contains the parsed html elements
      *
      * @var \Ticketpark\HtmlPhpExcel\Elements\Document
      */
-    protected $document;
+    private $document;
 
     /**
      * Determines if the values should be encoded in some way before writing to the excel cell
      *
      * @var null|string
      */
-    protected $changeEncoding;
+    private $changeEncoding;
 
-    /**
-     * Constructor
-     *
-     * @param string|null $htmlStringOrFile
-     */
-    public function __construct($htmlStringOrFile)
+    public function __construct(string $htmlStringOrFile = null)
     {
         $this->htmlStringOrFile = $htmlStringOrFile;
     }
 
-    /**
-     * Set html class of tables (<table>) to be parsed
-     *
-     * @param string $class
-     * @return $this
-     */
-    public function setTableClass($class)
+    public function setTableClass(string $class): self
     {
         $this->tableClass = $class;
 
         return $this;
     }
 
-    /**
-     * Set html class of rows (<tr>) within tables to be parsed
-     *
-     * @param $class
-     * @return $this
-     */
-    public function setRowClass($class)
+    public function setRowClass(string $class): self
     {
         $this->rowClass = $class;
 
         return $this;
     }
 
-    /**
-     * Set html class of cells (<td> or <th>) within rows to be parsed
-     *
-     * @param string $class
-     * @return $this
-     */
-    public function setCellClass($class)
+    public function setCellClass(string $class): self
     {
         $this->cellClass = $class;
 
         return $this;
     }
 
-    /**
-     * Let's put things together!
-     *
-     * @return $this
-     */
-    public function process()
+    public function process(): self
     {
         $this->parseHtml();
         $this->createExcel();
@@ -132,12 +100,7 @@ class HtmlPhpExcel
         return $this;
     }
 
-    /**
-     * Get the Spreadsheet object
-     *
-     * @return Spreadsheet
-     */
-    public function getExcelObject()
+    public function getExcelObject(): Spreadsheet
     {
         if (!$this->spreadsheet instanceof Spreadsheet) {
             throw new HtmlPhpExcelException('You must run process() first to create a PhpSpreadsheet instance');
@@ -146,14 +109,7 @@ class HtmlPhpExcel
         return $this->spreadsheet;
     }
 
-    /**
-     * Output the created excel file
-     *
-     * @param string $filename The name of the output file
-     * @param string $excelWriterType
-     * @throws Exception\HtmlPhpExcelException
-     */
-    public function output($filename = 'excel.xlsx', $excelWriterType = 'xlsx')
+    public function output(string $filename = 'excel.xlsx', string $excelWriterType = 'xlsx'): void
     {
         if (!$this->spreadsheet instanceof Spreadsheet) {
             throw new HtmlPhpExcelException('You must run process() first to create a PhpSpreadsheet instance');
@@ -167,14 +123,7 @@ class HtmlPhpExcel
         $writer->save('php://output');
     }
 
-    /**
-     * Save the created excel file
-     *
-     * @param string $filename The name of the output file
-     * @param string $excelWriterType
-     * @throws Exception\HtmlPhpExcelException
-     */
-    public function save($file, $excelWriterType = 'xlsx')
+    public function save(string $file, string $excelWriterType = 'xlsx'): self
     {
         if (!$this->spreadsheet instanceof Spreadsheet) {
             throw new HtmlPhpExcelException('You must run process() first to create a PhpSpreadsheet instance');
@@ -186,42 +135,21 @@ class HtmlPhpExcel
         return $this;
     }
 
-    /**
-     * Get the Document instance
-     *
-     * @return \Ticketpark\HtmlPhpExcel\Elements\Document
-     */
-    public function getDocument()
-    {
-        if (!$this->spreadsheet instanceof Spreadsheet) {
-            throw new HtmlPhpExcelException('You must run process() first to get ');
-        }
-
-        return $this->document;
-    }
-
-    /**
-     * UTF8-encode values before writing to excel cell
-     */
-    public function utf8EncodeValues()
+    public function utf8EncodeValues(): self
     {
         $this->changeEncoding = 'utf8_encode';
+
+        return $this;
     }
 
-    /**
-     * UTF8-decode values before writing to excel cell
-     */
-    public function utf8DecodeValues()
+    public function utf8DecodeValues(): self
     {
         $this->changeEncoding = 'utf8_decode';
+
+        return $this;
     }
 
-    /**
-     * Parse the html and return document
-     *
-     * @return \Ticketpark\HtmlPhpExcel\Elements\Document
-     */
-    protected function parseHtml()
+    private function parseHtml(): Document
     {
         $parser = new Parser($this->htmlStringOrFile);
         $document = $parser->setTableClass($this->tableClass)
@@ -234,12 +162,7 @@ class HtmlPhpExcel
         return $document;
     }
 
-    /**
-     * Create excel from document
-     *
-     * @return Spreadsheet
-     */
-    protected function createExcel()
+    private function createExcel(): Spreadsheet
     {
         $this->spreadsheet = new Spreadsheet();
         $tableNumber = 0;
@@ -320,14 +243,7 @@ class HtmlPhpExcel
         return $this->spreadsheet;
     }
 
-    /**
-     * Set dimensions of row or column
-     *
-     * @param Worksheet $excelWorksheet
-     * @param $excelElement
-     * @param $documentElement
-     */
-    protected function setDimensions(Worksheet $excelWorksheet, $excelElement, $documentElement)
+    private function setDimensions(Worksheet $excelWorksheet, $excelElement, Document $documentElement): void
     {
         $dimensions = $this->getDimensionsArray($documentElement);
 
@@ -351,24 +267,12 @@ class HtmlPhpExcel
         }
     }
 
-    /**
-     * Prepare styles array for a cell
-     *
-     * @param Cell $cell
-     * @param Cell $cell
-     */
-    protected function getRowStylesArray(\Ticketpark\HtmlPhpExcel\Elements\Row $row)
+    private function getRowStylesArray(\Ticketpark\HtmlPhpExcel\Elements\Row $row): array
     {
         return $this->getStylesArray($row);
     }
 
-    /**
-     * Prepare styles array for a cell
-     *
-     * @param Cell $cell
-     * @param Cell $cell
-     */
-    protected function getCellStylesArray(\Ticketpark\HtmlPhpExcel\Elements\Cell $cell)
+    private function getCellStylesArray(\Ticketpark\HtmlPhpExcel\Elements\Cell $cell): array
     {
         $styles = $this->getStylesArray($cell);
 
@@ -379,13 +283,7 @@ class HtmlPhpExcel
         return $styles;
     }
 
-    /**
-     * Get the styles array for any element
-     *
-     * @param $documentElement
-     * @return array
-     */
-    protected function getStylesArray($documentElement)
+    private function getStylesArray(Document $documentElement): array
     {
         $styles = array();
 
@@ -407,13 +305,7 @@ class HtmlPhpExcel
         return $styles;
     }
 
-    /**
-     * Get the styles array for any element
-     *
-     * @param $documentElement
-     * @return array
-     */
-    protected function getDimensionsArray($documentElement)
+    private function getDimensionsArray(Document $documentElement): array
     {
         $dimensions = array();
 
@@ -435,13 +327,7 @@ class HtmlPhpExcel
         return $dimensions;
     }
 
-    /**
-     * Sanitize styles array
-     *
-     * @param array $styles
-     * @return array
-     */
-    protected function sanitizeArray($array)
+    private function sanitizeArray(array $array): array
     {
         foreach($array as $key => $value){
             if(is_array($value)){
@@ -474,7 +360,7 @@ class HtmlPhpExcel
      * @param string $value
      * @return string
      */
-    protected function convertStaticPhpSpreadsheetConstantsFromStringsToConstants($value)
+    private function convertStaticPhpSpreadsheetConstantsFromStringsToConstants(string $value)
     {
         if (strpos($value, 'PHPExcel_') === 0 || strpos($value, 'PhpSpreadsheet_') === 0) {
             $parts = explode('::', $value);
@@ -495,12 +381,7 @@ class HtmlPhpExcel
         return $value;
     }
 
-    /**
-     * Apply modifications to value before writing to excel cell
-     *
-     * @param mixed $value
-     */
-    protected function changeValueEncoding($value)
+    private function changeValueEncoding(string $value): string
     {
         if (null !== $this->changeEncoding) {
             $value = call_user_func($this->changeEncoding, $value);

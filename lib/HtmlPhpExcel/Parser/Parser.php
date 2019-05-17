@@ -8,11 +8,6 @@ use Ticketpark\HtmlPhpExcel\Elements\Row;
 use Ticketpark\HtmlPhpExcel\Elements\Table;
 use Ticketpark\HtmlPhpExcel\Exception\HtmlPhpExcelException;
 
-/**
- * HTML Parser
- *
- * @author Manuel Reinhard <manu@sprain.ch>
- */
 class Parser {
 
     /**
@@ -20,7 +15,7 @@ class Parser {
      *
      * @var string
      */
-    protected $html;
+    private $html;
 
     /**
      * The class attribute the tables must have to be parsed
@@ -28,7 +23,7 @@ class Parser {
      *
      * @var string
      */
-    protected $tableClass;
+    private $tableClass;
 
     /**
      * The class attribute the rows (<tr>) must have to be parsed.
@@ -36,7 +31,7 @@ class Parser {
      *
      * @var string
      */
-    protected $rowClass;
+    private $rowClass;
 
     /**
      * The class attribute the rows (<td> or <th>) must have to be parsed.
@@ -44,14 +39,9 @@ class Parser {
      *
      * @var string
      */
-    protected $cellClass;
+    private $cellClass;
 
-    /**
-     * Constructor
-     *
-     * @param string|null $htmlStringOrFile
-     */
-    public function __construct($htmlStringOrFile = null)
+    public function __construct(string $htmlStringOrFile = null)
     {
         if (null !== $htmlStringOrFile) {
             if (is_file($htmlStringOrFile)) {
@@ -62,77 +52,42 @@ class Parser {
         }
     }
 
-    /**
-     * Set html as string
-     *
-     * @param string $html
-     * @return $this
-     */
-    public function setHtml($html)
+    public function setHtml(string $html): self
     {
         $this->html = $html;
 
         return $this;
     }
 
-    /**
-     * Set file containing html content
-     *
-     * @param string $file
-     * @return $this
-     */
-    public function setHtmlFile($file)
+    public function setHtmlFile(string $file): self
     {
         $this->html = file_get_contents($file);
 
         return $this;
     }
 
-    /**
-     * Set html class of tables (<table>) to be parsed
-     *
-     * @param string $class
-     * @return $this
-     */
-    public function setTableClass($class)
+    public function setTableClass(string $class): self
     {
         $this->tableClass = $class;
 
         return $this;
     }
 
-    /**
-     * Set html class of rows (<tr>) within tables to be parsed
-     *
-     * @param $class
-     * @return $this
-     */
-    public function setRowClass($class)
+    public function setRowClass(string $class): self
     {
         $this->rowClass = $class;
 
         return $this;
     }
 
-    /**
-     * Set html class of cells (<td> or <th>) within rows to be parsed
-     *
-     * @param string $class
-     * @return $this
-     */
-    public function setCellClass($class)
+    public function setCellClass(string $class): self
     {
         $this->cellClass = $class;
 
         return $this;
     }
 
-    /**
-     * Parses the html code
-     *
-     * @return \Ticketpark\HtmlPhpExcel\Elements\Document
-     */
-    public function parse()
+    public function parse(): Document
     {
         if (null === $this->html) {
             throw new HtmlPhpExcelException('You must provide html content first. Use setHtml() or setHtmlFile().');

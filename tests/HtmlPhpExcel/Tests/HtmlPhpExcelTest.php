@@ -52,14 +52,6 @@ class HtmlPhpExcelTest extends \PHPUnit_Framework_TestCase
         $this->assertInstanceOf('PhpOffice\PhpSpreadsheet\Spreadsheet', $excelObject);
     }
 
-    public function testGetHtmlFromFile()
-    {
-        $htmlphpexcel = new HtmlPhpExcel($this->pathToTestfiles.'test.html');
-        $htmlphpexcel->process();
-
-        $this->assertEquals(1, $htmlphpexcel->getDocument()->getTables()->count());
-    }
-
     /**
      * @expectedException \Ticketpark\HtmlPhpExcel\Exception\HtmlPhpExcelException
      */
@@ -85,14 +77,5 @@ class HtmlPhpExcelTest extends \PHPUnit_Framework_TestCase
     {
         $htmlphpexcel = new HtmlPhpExcel('<table></table>');
         $htmlphpexcel->getExcelObject();
-    }
-
-    /**
-     * @expectedException \Ticketpark\HtmlPhpExcel\Exception\HtmlPhpExcelException
-     */
-    public function testExceptionGetDocumentWithoutProcess()
-    {
-        $htmlphpexcel = new HtmlPhpExcel('<table></table>');
-        $htmlphpexcel->getDocument();
     }
 }

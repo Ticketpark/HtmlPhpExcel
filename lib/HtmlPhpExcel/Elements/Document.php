@@ -4,11 +4,6 @@ namespace Ticketpark\HtmlPhpExcel\Elements;
 
 use Doctrine\Common\Collections\ArrayCollection;
 
-/**
- * Document
- *
- * @author Manuel Reinhard <manu@sprain.ch>
- */
 class Document
 {
     /**
@@ -26,22 +21,12 @@ class Document
         $this->tables = new ArrayCollection();
     }
 
-    /**
-     * Add a table to the document
-     *
-     * @param \Ticketpark\HtmlPhpExcel\Elements\Table $table
-     */
-    public function addTable(Table $table)
+    public function addTable(Table $table): void
     {
         $this->tables->add($table);
     }
 
-    /**
-     * Get tables of the document
-     *
-     * @return ArrayCollection
-     */
-    public function getTables()
+    public function getTables(): ArrayCollection
     {
         return $this->tables;
     }

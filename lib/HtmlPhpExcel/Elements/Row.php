@@ -5,11 +5,6 @@ namespace Ticketpark\HtmlPhpExcel\Elements;
 use Doctrine\Common\Collections\ArrayCollection;
 use Ticketpark\HtmlPhpExcel\Elements\Base\BaseElement;
 
-/**
- * Row
- *
- * @author Manuel Reinhard <manu@sprain.ch>
- */
 class Row extends BaseElement
 {
     /**
@@ -19,31 +14,18 @@ class Row extends BaseElement
      */
     protected $cells;
 
-    /**
-     * Constructor
-     */
     public function __construct()
     {
         $this->cells = new ArrayCollection();
         parent::__construct();
     }
 
-    /**
-     * Add a cell to the row
-     *
-     * @param \Ticketpark\HtmlPhpExcel\Elements\Cell $cell
-     */
-    public function addCell(Cell $cell)
+    public function addCell(Cell $cell): void
     {
         $this->cells->add($cell);
     }
 
-    /**
-     * Get cells/columns of the row
-     *
-     * @return ArrayCollection
-     */
-    public function getCells()
+    public function getCells(): ArrayCollection
     {
         return $this->cells;
     }
