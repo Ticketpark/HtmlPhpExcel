@@ -372,8 +372,6 @@ class HtmlPhpExcel
                 $fqns .= '\\' . $namespacePart;
             }
 
-            print $fqns."\n";
-
             $class = new \ReflectionClass($fqns);
             $value = $class->getConstant($parts[1]);
         }
