@@ -239,9 +239,9 @@ class HtmlPhpExcel
         }
     }
 
-    private function setDimensionsForRow(Worksheet $excelWorksheet, Row $excelElement, HtmlPhpExcelElement\Document $documentElement): void
+    private function setDimensionsForRow(Worksheet $excelWorksheet, Row $excelElement, HtmlPhpExcelElement\Row $row): void
     {
-        $dimensions = $this->getDimensionsArray($documentElement);
+        $dimensions = $this->getDimensionsArray($row);
 
         if (isset($dimensions['row'])) {
             foreach($dimensions['row'] as $rowKey => $rowValue) {
@@ -256,9 +256,9 @@ class HtmlPhpExcel
         }
     }
 
-    private function setDimensionsForCell(Worksheet $excelWorksheet, Cell $excelElement, HtmlPhpExcelElement\Document $documentElement): void
+    private function setDimensionsForCell(Worksheet $excelWorksheet, Cell $excelElement, HtmlPhpExcelElement\Cell $cell): void
     {
-        $dimensions = $this->getDimensionsArray($documentElement);
+        $dimensions = $this->getDimensionsArray($cell);
 
         if (isset($dimensions['column'])) {
             foreach($dimensions['column'] as $columnKey => $columnValue) {
