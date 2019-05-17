@@ -2,9 +2,9 @@
 
 namespace Ticketpark\HtmlPhpExcel\Elements;
 
-use Ticketpark\HtmlPhpExcel\Elements\Base\BaseElement;
+use Ticketpark\HtmlPhpExcel\Elements\BaseElement;
 
-class Cell extends BaseElement
+class Cell extends BaseElement implements Element
 {
     /**
      * The value of a table cell

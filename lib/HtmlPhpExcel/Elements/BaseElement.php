@@ -1,15 +1,10 @@
 <?php
 
-namespace Ticketpark\HtmlPhpExcel\Elements\Base;
+namespace Ticketpark\HtmlPhpExcel\Elements;
 
 use Doctrine\Common\Collections\ArrayCollection;
 
-/**
- * Base Element
- *
- * @author Manuel Reinhard <manu@sprain.ch>
- */
-class BaseElement
+abstract class BaseElement
 {
     /**
      * A collection of attributes of this cell

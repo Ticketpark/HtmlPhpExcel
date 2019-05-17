@@ -3,9 +3,9 @@
 namespace Ticketpark\HtmlPhpExcel\Elements;
 
 use Doctrine\Common\Collections\ArrayCollection;
-use Ticketpark\HtmlPhpExcel\Elements\Base\BaseElement;
+use Ticketpark\HtmlPhpExcel\Elements\BaseElement;
 
-class Table extends BaseElement
+class Table extends BaseElement implements Element
 {
     /**
      * A collection of rows within the table

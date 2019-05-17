@@ -283,7 +283,7 @@ class HtmlPhpExcel
         return $styles;
     }
 
-    private function getStylesArray(HtmlPhpExcelElement\BaseElement $documentElement): array
+    private function getStylesArray(HtmlPhpExcelElement\Element $documentElement): array
     {
         $styles = array();
 
@@ -305,7 +305,7 @@ class HtmlPhpExcel
         return $styles;
     }
 
-    private function getDimensionsArray(HtmlPhpExcelElement\BaseElement $documentElement): array
+    private function getDimensionsArray(HtmlPhpExcelElement\Element $documentElement): array
     {
         $dimensions = array();
 
