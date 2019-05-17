@@ -49,7 +49,7 @@ class HtmlPhpExcelTest extends \PHPUnit_Framework_TestCase
         $htmlphpexcel = new HtmlPhpExcel('<table></table>');
         $excelObject = $htmlphpexcel->process()->getExcelObject();
 
-        $this->assertInstanceOf('\PhpExcel', $excelObject);
+        $this->assertInstanceOf('PhpOffice\PhpSpreadsheet\Spreadsheet', $excelObject);
     }
 
     public function testGetHtmlFromFile()
