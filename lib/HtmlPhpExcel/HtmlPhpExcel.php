@@ -8,7 +8,7 @@ use PhpOffice\PhpSpreadsheet\IOFactory;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 use PhpOffice\PhpSpreadsheet\Worksheet\Row;
-use Ticketpark\HtmlPhpExcel\Elements\Document;
+use Ticketpark\HtmlPhpExcel\Elements as HtmlPhpExcelElement;
 use Ticketpark\HtmlPhpExcel\Exception\HtmlPhpExcelException;
 use Ticketpark\HtmlPhpExcel\Parser\Parser;
 
@@ -149,7 +149,7 @@ class HtmlPhpExcel
         return $this;
     }
 
-    private function parseHtml(): Document
+    private function parseHtml(): HtmlPhpExcelElement\Document
     {
         $parser = new Parser($this->htmlStringOrFile);
         $document = $parser->setTableClass($this->tableClass)
@@ -267,12 +267,12 @@ class HtmlPhpExcel
         }
     }
 
-    private function getRowStylesArray(\Ticketpark\HtmlPhpExcel\Elements\Row $row): array
+    private function getRowStylesArray(HtmlPhpExcelElement\Row $row): array
     {
         return $this->getStylesArray($row);
     }
 
-    private function getCellStylesArray(\Ticketpark\HtmlPhpExcel\Elements\Cell $cell): array
+    private function getCellStylesArray(HtmlPhpExcelElement\Cell $cell): array
     {
         $styles = $this->getStylesArray($cell);
 
