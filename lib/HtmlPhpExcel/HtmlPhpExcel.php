@@ -184,7 +184,7 @@ class HtmlPhpExcel
             foreach($table->getRows() as $row){
 
                 $excelWorksheet->getStyle($rowNumber.':'.$rowNumber)->applyFromArray($this->getRowStylesArray($row));
-                $this->setDimensions($excelWorksheet, $excelWorksheet->getRowIterator($rowNumber)->current(), $row);
+                $this->setDimensionsForRow($excelWorksheet, $excelWorksheet->getRowIterator($rowNumber)->current(), $row);
 
                 // Loop over all cells in row
                 $cellNumber = 1;
@@ -229,7 +229,7 @@ class HtmlPhpExcel
 
                     // Set styles
                     $excelWorksheet->getStyle($excelCellIndex)->applyFromArray($this->getCellStylesArray($cell));
-                    $this->setDimensions($excelWorksheet, $excelWorksheet->getCell($excelCellIndex), $cell);
+                    $this->setDimensionsForCell($excelWorksheet, $excelWorksheet->getCell($excelCellIndex), $cell);
 
                     $cellNumber++;
                 }
@@ -243,16 +243,9 @@ class HtmlPhpExcel
         return $this->spreadsheet;
     }
 
-    private function setDimensions(Worksheet $excelWorksheet, HtmlPhpExcelElement\Element $excelElement, HtmlPhpExcelElement\Document $documentElement): void
+    private function setDimensionsForRow(Worksheet $excelWorksheet, Row $excelElement, HtmlPhpExcelElement\Document $documentElement): void
     {
         $dimensions = $this->getDimensionsArray($documentElement);
-
-        if (isset($dimensions['column']) && $excelElement instanceof Cell) {
-            foreach($dimensions['column'] as $columnKey => $columnValue) {
-                $method = 'set'.ucfirst($columnKey);
-                $excelWorksheet->getColumnDimension($excelElement->getColumn())->$method($columnValue);
-            }
-        }
 
         if (isset($dimensions['row'])) {
             foreach($dimensions['row'] as $rowKey => $rowValue) {
@@ -263,6 +256,18 @@ class HtmlPhpExcel
                     $excelWorksheet->getRowDimension($excelElement->getRowIndex())->$method($rowValue);
                 }
 
+            }
+        }
+    }
+
+    private function setDimensionsForCell(Worksheet $excelWorksheet, Cell $excelElement, HtmlPhpExcelElement\Document $documentElement): void
+    {
+        $dimensions = $this->getDimensionsArray($documentElement);
+
+        if (isset($dimensions['column'])) {
+            foreach($dimensions['column'] as $columnKey => $columnValue) {
+                $method = 'set'.ucfirst($columnKey);
+                $excelWorksheet->getColumnDimension($excelElement->getColumn())->$method($columnValue);
             }
         }
     }
