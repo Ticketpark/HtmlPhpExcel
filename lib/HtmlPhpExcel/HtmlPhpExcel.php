@@ -243,7 +243,7 @@ class HtmlPhpExcel
         return $this->spreadsheet;
     }
 
-    private function setDimensions(Worksheet $excelWorksheet, $excelElement, Document $documentElement): void
+    private function setDimensions(Worksheet $excelWorksheet, HtmlPhpExcelElement\Element $excelElement, HtmlPhpExcelElement\Document $documentElement): void
     {
         $dimensions = $this->getDimensionsArray($documentElement);
 
