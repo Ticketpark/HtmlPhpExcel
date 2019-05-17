@@ -345,12 +345,12 @@ class HtmlPhpExcel
      *
      * Example:
      * If the html element contains a _excel-styles attribute with the json-encoded version of the array below,
-     * the value PHPExcel_Style_Fill::FILL_SOLID would be treated as a string.
+     * the value PhpSpreadsheet_Style_Fill::FILL_SOLID would be treated as a string.
      * We need to treat it as a static class constant and also apply the correct namespace.
      *
      * array (
      *   'fill' => array (
-     *     'type' => 'PHPExcel_Style_Fill::FILL_SOLID',
+     *     'type' => 'PhpSpreadsheet_Style_Fill::FILL_SOLID',
      *     'color' => array (
      *       'rgb' => '4F4F4F',
      *     ),
