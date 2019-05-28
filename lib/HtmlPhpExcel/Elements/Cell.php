@@ -2,65 +2,40 @@
 
 namespace Ticketpark\HtmlPhpExcel\Elements;
 
-use Ticketpark\HtmlPhpExcel\Elements\Base\BaseElement;
+use Ticketpark\HtmlPhpExcel\Elements\BaseElement;
 
-/**
- * Cell
- *
- * @author Manuel Reinhard <manu@sprain.ch>
- */
-class Cell extends BaseElement
+class Cell extends BaseElement implements Element
 {
     /**
      * The value of a table cell
      *
      * @var string
      */
-    protected $value;
+    private $value;
 
     /**
      * Flag whether the cell is a header cell (<th>)
      *
      * @var bool
      */
-    protected $isHeader = false;
+    private $isHeader = false;
 
-    /**
-     * Set value
-     *
-     * @param string $value
-     */
-    public function setValue($value)
+    public function setValue(string $value): void
     {
         $this->value = $value;
     }
 
-    /**
-     * Get value
-     *
-     * @return string
-     */
-    public function getValue()
+    public function getValue(): string
     {
         return $this->value;
     }
 
-    /**
-     * Set if the cell is a header cell (<th>)
-     *
-     * @param bool $isHeader
-     */
-    public function setIsHeader($isHeader)
+    public function setIsHeader(bool $isHeader): void
     {
         $this->isHeader = $isHeader;
     }
 
-    /**
-     * Returns if the cell is a header cell (<th>)
-     *
-     * @return bool
-     */
-    public function isHeader()
+    public function isHeader(): bool
     {
         return $this->isHeader;
     }

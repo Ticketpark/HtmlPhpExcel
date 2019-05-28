@@ -3,12 +3,7 @@
 [![Build Status](https://travis-ci.org/Ticketpark/HtmlPhpExcel.svg?branch=master)](https://travis-ci.org/Ticketpark/HtmlPhpExcel)
 [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/Ticketpark/HtmlPhpExcel/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/Ticketpark/HtmlPhpExcel/?branch=master)
 
-This is a php library based on [PHPExcel](https://github.com/PHPOffice/PHPExcel) which simplifies converting html tables to excel files. It allows styling right within the html template with specific attributes.
-
-## Todos
-* Write documentation for usage of table class, row class and cell class filtering
-* Write documentation for cell merging functionalities
-* Write documentation for usage of `utf8EncodeValues()` and `utf8DecodeValues()`
+This is a php library based on [PhpSpreadsheet](https://github.com/PHPOffice/PhpSpreadsheet) which simplifies converting html tables to excel files. It allows styling right within the html template with specific attributes.
 
 ## Installation
 
@@ -32,9 +27,9 @@ $htmlPhpExcel = new \Ticketpark\HtmlPhpExcel\HtmlPhpExcel($html);
 $htmlPhpExcel->process()->output();
 
 // Alternatively create the excel and save to a file
-$htmlPhpExcel->process()->save('myFile.xls');
+$htmlPhpExcel->process()->save('myFile.xlsx');
 
-// or get the PHPExcel object to do further work with it
+// or get the \PhpOffice\PhpSpreadsheet\Spreadsheet object to do further work with it
 $phpExcelObject = $htmlPhpExcel->process()->getExcelObject();
 
 ```
@@ -44,7 +39,7 @@ For a more complex example with styling options see [example directory](example)
 ## Styling
 There is support for specific html attributes to allow styling of the excel output. The attributes expect the content to be json_encoded.
 
-* `_excel-styles`<br>Supports everything which is possible with PHPExcel's `applyFromArray()` method ([also see here](http://phpexcel.codeplex.com/discussions/206914)).
+* `_excel-styles`<br>Supports everything which is possible with PhpSpreadsheet's `applyFromArray()` method ([also see here](https://phpspreadsheet.readthedocs.io/en/latest/topics/recipes/#valid-array-keys-for-style-applyfromarray)).
 
 Example:
 ```html
@@ -72,7 +67,7 @@ Example:
 ```html
 <table>
     <tr>
-        <td _excel-explicit='PHPExcel_Cell_DataType::TYPE_STRING'>0022</td>
+        <td _excel-explicit='PhpSpreadsheet_Cell_DataType::TYPE_STRING'>0022</td>
     </tr>
 </table>
 ```

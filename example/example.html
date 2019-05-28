@@ -10,21 +10,21 @@
     </tr>
 
     <!-- Apply json-encoded styles to rows -->
-    <tr _excel-styles='{"fill":{"type":"PHPExcel_Style_Fill::FILL_SOLID","color":{"rgb":"4F4F4F"}}}'>
+    <tr _excel-styles='{"fill":{"fillType":"PhpSpreadsheet_Style_Fill::FILL_SOLID","color":{"argb":"4F4F4F"}}}'>
         <th _excel-styles='{"font":{"color":{"rgb":"FFFFFF"}}}'>Column A</th>
         <th _excel-styles='{"font":{"color":{"rgb":"FFFFFF"}}}'>Column B</th>
     </tr>
 
     <tr>
         <td>Left align</td>
-        <td _excel-styles='{"alignment":{"horizontal":"PHPExcel_Style_Alignment::HORIZONTAL_RIGHT"}}'>Right align</td>
+        <td _excel-styles='{"alignment":{"horizontal":"PhpSpreadsheet_Style_Alignment::HORIZONTAL_RIGHT"}}'>Right align</td>
     </tr>
 
     <tr>
         <td>5</td>
         <td>6</td>
         <!-- Set explicit cell value types, e.q. to treat numbers as strings -->
-        <td _excel-explicit='PHPExcel_Cell_DataType::TYPE_STRING'>0022</td>
+        <td _excel-explicit='PhpSpreadsheet_Cell_DataType::TYPE_STRING'>0022</td>
     </tr>
 
     <tr>
@@ -35,20 +35,16 @@
     </tr>
 
     <!-- Set row dimensions-->
-    <tr _excel-dimensions='{"row":{"rowHeight":50}}' _excel-styles='{"alignment":{"vertical":"PHPExcel_Style_Alignment::VERTICAL_CENTER"}}'>
+    <tr _excel-dimensions='{"row":{"rowHeight":50}}' _excel-styles='{"alignment":{"vertical":"PhpSpreadsheet_Style_Alignment::VERTICAL_CENTER"}}'>
         <!-- Number formats! -->
-        <td _excel-styles='{"numberformat":{"code":"PHPExcel_Style_NumberFormat::FORMAT_NUMBER_00"}}'>25</td>
-        <td _excel-styles='{"numberformat":{"code":"PHPExcel_Style_NumberFormat::FORMAT_CURRENCY_USD"}}'>1520.20</td>
+        <td _excel-styles='{"numberFormat":{"formatCode":"PhpSpreadsheet_Style_NumberFormat::FORMAT_NUMBER_00"}}'>25</td>
+        <td _excel-styles='{"numberFormat":{"formatCode":"PhpSpreadsheet_Style_NumberFormat::FORMAT_CURRENCY_USD"}}'>1520.20</td>
     </tr>
 
     <tr>
         <td></td>
         <td></td>
-        <!--
-        Set column dimensions
-        Note: there is a bug in PHPExcel with autoSize=true if the columns contain formulas.
-        See https://phpexcel.codeplex.com/workitem/20051
-        -->
+        <!-- Set column dimensions -->
         <td _excel-dimensions='{"column":{"width":20}, "row":{"rowHeight":50}}'>No need to fill all cells.</td>
         <td _excel-dimensions='{"column":{"autoSize":"true"}}'>And no need to care about how many cells there are in each row.</td>
     </tr>
