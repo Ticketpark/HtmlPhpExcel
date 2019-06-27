@@ -92,8 +92,14 @@ class HtmlPhpExcel
         return $this;
     }
 
-    public function process(): self
+    public function process(Spreadsheet $spreadsheet = null): self
     {
+        if ($spreadsheet) {
+            $this->spreadsheet = $spreadsheet;
+        } else {
+            $this->spreadsheet = new Spreadsheet();
+        }
+
         $this->parseHtml();
         $this->createExcel();
 
@@ -162,10 +168,8 @@ class HtmlPhpExcel
 
     private function createExcel(): void
     {
-        $this->spreadsheet = new Spreadsheet();
-        $tableNumber = 0;
-
         // Loop over all tables in document
+        $tableNumber = 0;
         foreach($this->document->getTables() as $table){
 
             // Handle worksheets
@@ -178,7 +182,7 @@ class HtmlPhpExcel
             }
 
             // Loop over all rows
-            $rowNumber = 1;
+            $rowNumber = $this->getHighestRow($excelWorksheet);
             foreach($table->getRows() as $row){
 
                 $excelWorksheet->getStyle($rowNumber.':'.$rowNumber)->applyFromArray($this->getRowStylesArray($row));
@@ -188,13 +192,13 @@ class HtmlPhpExcel
                 $cellNumber = 1;
                 foreach($row->getCells() as $cell){
                     $excelCellIndex = Coordinate::stringFromColumnIndex($cellNumber).$rowNumber;
-                    
+
                     // Skip cells withing merge range
                     while ($excelWorksheet->getCell($excelCellIndex)->isInMergeRange()) {
                         $cellNumber++;
                         $excelCellIndex = Coordinate::stringFromColumnIndex($cellNumber).$rowNumber;
                     }
-                    
+
                     // Set value
                     $explicitCellType = $cell->getAttribute('_excel-explicit');
                     if (!$explicitCellType) {
@@ -326,6 +330,13 @@ class HtmlPhpExcel
         $dimensions = $this->sanitizeArray($dimensions);
 
         return $dimensions;
+    }
+
+    private function getHighestRow(Worksheet $excelWorksheet): int
+    {
+        $highestRow = $excelWorksheet->getHighestRow(0);
+
+        return intval($highestRow) + intval($highestRow > 1);
     }
 
     private function sanitizeArray(array $array): array
