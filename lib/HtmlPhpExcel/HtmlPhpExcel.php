@@ -212,9 +212,10 @@ class HtmlPhpExcel
                             $this->convertStaticPhpSpreadsheetConstantsFromStringsToConstants($explicitCellType)
                         );
                     } else {
+                        $html = new \PhpOffice\PhpSpreadsheet\Helper\Html();
                         $excelWorksheet->setCellValue(
                             $excelCellIndex,
-                            $this->changeValueEncoding($cell->getValue())
+                            $html->toRichTextObject($this->changeValueEncoding($cell->getValue()))
                         );
                     }
 

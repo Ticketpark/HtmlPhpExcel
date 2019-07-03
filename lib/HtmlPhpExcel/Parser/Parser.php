@@ -117,7 +117,8 @@ class Parser {
 
                 foreach($htmlCells as $htmlCell) {
                     $cell = new Cell();
-                    $cell->setValue($htmlCell->nodeValue);
+                    $value = $htmlCell->ownerDocument->saveXML($htmlCell);
+                    $cell->setValue($value);
 
                     foreach ($htmlCell->attributes as $attribute) {
                         $cell->addAttribute($attribute->name, $attribute->value);
