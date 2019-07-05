@@ -94,6 +94,7 @@ class Parser {
         }
 
         $dom = new \DOMDocument();
+        $this->html = mb_convert_encoding($this->html , 'HTML-ENTITIES', 'UTF-8');
         $dom->loadHTML($this->html);
 
         $xpath = new \DOMXPath($dom);
@@ -148,4 +149,3 @@ class Parser {
         return $document;
     }
 }
-
