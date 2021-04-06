@@ -9,8 +9,8 @@
         {"name": "Manuel Reinhard", "email": "manu@sprain.ch"}
     ],
     "require": {
-        "php": ">=7.1",
-        "doctrine/common": "~2.4",
+        "php": "^7.1",
+        "doctrine/collections": "^1.6",
         "phpoffice/phpspreadsheet": "^1.6"
     },
     "require-dev": {
