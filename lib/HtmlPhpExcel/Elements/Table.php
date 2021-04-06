@@ -3,7 +3,6 @@
 namespace Ticketpark\HtmlPhpExcel\Elements;
 
 use Doctrine\Common\Collections\ArrayCollection;
-use Ticketpark\HtmlPhpExcel\Elements\BaseElement;
 
 class Table extends BaseElement implements Element
 {

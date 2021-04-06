@@ -3,7 +3,6 @@
 namespace Ticketpark\HtmlPhpExcel\Elements;
 
 use Doctrine\Common\Collections\ArrayCollection;
-use Ticketpark\HtmlPhpExcel\Elements\BaseElement;
 
 class Row extends BaseElement implements Element
 {

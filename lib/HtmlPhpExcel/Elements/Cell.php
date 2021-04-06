@@ -2,8 +2,6 @@
 
 namespace Ticketpark\HtmlPhpExcel\Elements;
 
-use Ticketpark\HtmlPhpExcel\Elements\BaseElement;
-
 class Cell extends BaseElement implements Element
 {
     /**
