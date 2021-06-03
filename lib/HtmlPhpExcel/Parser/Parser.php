@@ -44,7 +44,7 @@ class Parser {
     public function __construct(string $htmlStringOrFile = null)
     {
         if (null !== $htmlStringOrFile) {
-            if (is_file($htmlStringOrFile)) {
+            if (PHP_MAXPATHLEN >= strlen($htmlStringOrFile) && is_file($htmlStringOrFile)) {
                 $this->setHtmlFile($htmlStringOrFile);
             } elseif (is_string($htmlStringOrFile)) {
                 $this->setHtml($htmlStringOrFile);
