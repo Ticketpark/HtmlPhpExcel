@@ -2,6 +2,8 @@
 
 namespace HtmlPhpExcel\Tests;
 
+use PHPUnit\Framework\TestCase;
+use Ticketpark\HtmlPhpExcel\Exception\HtmlPhpExcelException;
 use Ticketpark\HtmlPhpExcel\HtmlPhpExcel;
 
 /**
@@ -9,11 +11,11 @@ use Ticketpark\HtmlPhpExcel\HtmlPhpExcel;
  *
  * This only tests basic behaviour of the class, not the actual content of the excel files.
  */
-class HtmlPhpExcelTest extends \PHPUnit_Framework_TestCase
+class HtmlPhpExcelTest extends TestCase
 {
     protected $pathToTestfiles;
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->pathToTestfiles = __DIR__.'/../../testfiles/';
     }
@@ -52,29 +54,26 @@ class HtmlPhpExcelTest extends \PHPUnit_Framework_TestCase
         $this->assertInstanceOf('PhpOffice\PhpSpreadsheet\Spreadsheet', $excelObject);
     }
 
-    /**
-     * @expectedException \Ticketpark\HtmlPhpExcel\Exception\HtmlPhpExcelException
-     */
     public function testExceptionOutputWithoutProcess()
     {
+        $this->expectException(HtmlPhpExcelException::class);
+
         $htmlphpexcel = new HtmlPhpExcel('<table></table>');
         $htmlphpexcel->output();
     }
 
-    /**
-     * @expectedException \Ticketpark\HtmlPhpExcel\Exception\HtmlPhpExcelException
-     */
     public function testExceptionSaveWithoutProcess()
     {
+        $this->expectException(HtmlPhpExcelException::class);
+
         $htmlphpexcel = new HtmlPhpExcel('<table></table>');
         $htmlphpexcel->save('foo.xls');
     }
 
-    /**
-     * @expectedException \Ticketpark\HtmlPhpExcel\Exception\HtmlPhpExcelException
-     */
     public function testExceptionGetObjectWithoutProcess()
     {
+        $this->expectException(HtmlPhpExcelException::class);
+
         $htmlphpexcel = new HtmlPhpExcel('<table></table>');
         $htmlphpexcel->getExcelObject();
     }

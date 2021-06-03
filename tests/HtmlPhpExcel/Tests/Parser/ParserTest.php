@@ -2,11 +2,13 @@
 
 namespace HtmlPhpExcel\Tests\Parser;
 
+use PHPUnit\Framework\TestCase;
+use Ticketpark\HtmlPhpExcel\Exception\HtmlPhpExcelException;
 use Ticketpark\HtmlPhpExcel\Parser\Parser;
 
-class ParserTest extends \PHPUnit_Framework_TestCase
+class ParserTest extends TestCase
 {
-    public function setUp()
+    public function setUp(): void
     {
         $this->pathToTestfiles = __DIR__.'/../../../testfiles/';
     }
@@ -189,11 +191,10 @@ class ParserTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(1, $document->getTables()->count());
     }
 
-    /**
-     * @expectedException \Ticketpark\HtmlPhpExcel\Exception\HtmlPhpExcelException
-     */
     public function testExceptionWithoutHtmlContent()
     {
+        $this->expectException(HtmlPhpExcelException::class);
+
         $parser = new Parser();
         $parser->parse();
     }

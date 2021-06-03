@@ -3,3 +3,4 @@
 .DS_Store
 /example/test.xlsx
 /example/~$test.xlsx
+/.phpunit.result.cache
