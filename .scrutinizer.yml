@@ -8,6 +8,8 @@ filter:
 build:
   environment:
     php: 7.4.16
+    pecl_extensions:
+      - zip
   nodes:
     tests: true
     analysis:
