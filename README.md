@@ -1,6 +1,6 @@
 # HtmlPhpExcel
 
-[![Build Status](https://travis-ci.org/Ticketpark/HtmlPhpExcel.svg?branch=master)](https://travis-ci.org/Ticketpark/HtmlPhpExcel)
+[![Build Status](https://github.com/Ticketpark/HtmlPhpExcel/actions/workflows/tests.yml/badge.svg)](https://github.com/Ticketpark/HtmlPhpExcel/actions)
 [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/Ticketpark/HtmlPhpExcel/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/Ticketpark/HtmlPhpExcel/?branch=master)
 
 This is a php library based on [PhpSpreadsheet](https://github.com/PHPOffice/PhpSpreadsheet) which simplifies converting html tables to excel files. It allows styling right within the html template with specific attributes.
