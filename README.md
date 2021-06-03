@@ -12,7 +12,6 @@ Add HtmlPhpExcel to your composer.json:
 composer require ticketpark/htmlphpexcel
 ```
 
-
 ## Simple example
 ```php
 <?php
