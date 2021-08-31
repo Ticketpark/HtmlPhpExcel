@@ -12,6 +12,7 @@
         "php": "^7.3|^8.0",
         "ext-json": "*",
         "ext-dom": "*",
+        "ext-iconv": "*",
         "doctrine/collections": "^1.6",
         "phpoffice/phpspreadsheet": "^1.16"
     },

@@ -94,6 +94,9 @@ class Parser {
         }
 
         $dom = new \DOMDocument();
+
+        $this->html = mb_convert_encoding($this->html, 'HTML-ENTITIES', iconv_get_encoding());
+
         $dom->loadHTML($this->html);
 
         $xpath = new \DOMXPath($dom);
