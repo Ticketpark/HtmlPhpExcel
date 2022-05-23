@@ -9,7 +9,7 @@
         {"name": "Manuel Reinhard", "email": "manu@sprain.ch"}
     ],
     "require": {
-        "php": "^7.3|^8.0",
+        "php": "^7.3|^8.0.0|^8.1.0",
         "ext-json": "*",
         "ext-dom": "*",
         "doctrine/collections": "^1.6",
