@@ -334,9 +334,9 @@ class HtmlPhpExcel
 
     private function getHighestRow(Worksheet $excelWorksheet): int
     {
-        $highestRow = $excelWorksheet->getHighestRow(0);
+        $highestRow = $excelWorksheet->getHighestRow();
 
-        return intval($highestRow) + intval($highestRow > 1);
+        return $highestRow + ($highestRow > 1);
     }
 
     private function sanitizeArray(array $array): array
