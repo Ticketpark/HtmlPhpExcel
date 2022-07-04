@@ -69,3 +69,14 @@ Example:
     </tr>
 </table>
 ```
+
+* `_excel-link`<br>Supports applying a hyperlink to a cell.
+
+Example:
+```html
+<table>
+    <tr>
+        <td _excel-link='https://phpspreadsheet.readthedocs.io/en/latest/'>PhpSpreadsheet</td>
+    </tr>
+</table>
+```
