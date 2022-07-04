@@ -218,6 +218,12 @@ class HtmlPhpExcel
                         );
                     }
 
+                    // Set Url
+                    $cellLink = $cell->getAttribute('_excel-link');
+                    if ($cellLink = filter_var($cellLink, FILTER_SANITIZE_URL)) {
+                        $excelWorksheet->getCell($excelCellIndex)->getHyperlink()->setUrl($cellLink);
+                    }
+
                     // Merge cells
                     $colspan = $cell->getAttribute('colspan');
                     $rowspan = $cell->getAttribute('rowspan');
