@@ -218,6 +218,11 @@ class HtmlPhpExcel
                         );
                     }
 
+                    $cellComment = $cell->getAttribute('_excel-comment');
+                    if ($cellComment) {
+                        $excelWorksheet->getComment($excelCellIndex)->getText()->createText($cellComment);
+                    }
+
                     // Merge cells
                     $colspan = $cell->getAttribute('colspan');
                     $rowspan = $cell->getAttribute('rowspan');

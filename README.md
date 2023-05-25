@@ -69,3 +69,15 @@ Example:
     </tr>
 </table>
 ```
+
+* `_excel-comment`<br>Adds comment to cell.
+
+Examle:
+```html
+<table>
+    <tr>
+        <td _excel-comment='Comment content'>Cell value</td>
+    </tr>
+</table>
+```
+
