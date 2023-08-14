@@ -12,7 +12,7 @@
         "php": "^7.3|^8.0.0|^8.1.0",
         "ext-json": "*",
         "ext-dom": "*",
-        "doctrine/collections": "^1.6",
+        "doctrine/collections": "^1.6|^2.0",
         "phpoffice/phpspreadsheet": "^1.23"
     },
     "require-dev": {
