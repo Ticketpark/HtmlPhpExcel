@@ -8,10 +8,7 @@ use Ticketpark\HtmlPhpExcel\Parser\Parser;
 
 class ParserTest extends TestCase
 {
-    public function setUp(): void
-    {
-        $this->pathToTestfiles = __DIR__.'/../../../testfiles/';
-    }
+    private $pathToTestfiles = __DIR__.'/../../../testfiles/';
 
     public function testSimpleTable()
     {
