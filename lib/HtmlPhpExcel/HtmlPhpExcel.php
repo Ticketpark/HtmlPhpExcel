@@ -184,8 +184,12 @@ class HtmlPhpExcel
             // Loop over all rows
             $rowNumber = $this->getHighestRow($excelWorksheet);
             foreach($table->getRows() as $row){
+                $rowStylesArray = $this->getRowStylesArray($row);
+                if (!empty($rowStylesArray)) {
+                    $excelWorksheet->getStyle($rowNumber.':'.$rowNumber)->applyFromArray($rowStylesArray);
+                }
 
-                $excelWorksheet->getStyle($rowNumber.':'.$rowNumber)->applyFromArray($this->getRowStylesArray($row));
+                $excelWorksheet->getCell('A'.$rowNumber); // Fixes RowIterator exception
                 $this->setDimensionsForRow($excelWorksheet, $excelWorksheet->getRowIterator($rowNumber)->current(), $row);
 
                 // Loop over all cells in row
@@ -235,7 +239,10 @@ class HtmlPhpExcel
                     }
 
                     // Set styles
-                    $excelWorksheet->getStyle($excelCellIndex)->applyFromArray($this->getCellStylesArray($cell));
+                    $cellStylesArray = $this->getCellStylesArray($cell);
+                    if (!empty($cellStylesArray)) {
+                        $excelWorksheet->getStyle($excelCellIndex)->applyFromArray($cellStylesArray);
+                    }
                     $this->setDimensionsForCell($excelWorksheet, $excelWorksheet->getCell($excelCellIndex), $cell);
 
                     $cellNumber++;
