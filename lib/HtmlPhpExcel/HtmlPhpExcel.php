@@ -255,12 +255,7 @@ class HtmlPhpExcel
         if (isset($dimensions['row'])) {
             foreach($dimensions['row'] as $rowKey => $rowValue) {
                 $method = 'set'.ucfirst($rowKey);
-                if ($excelElement instanceof Cell) {
-                    $excelWorksheet->getRowDimension($excelElement->getRow())->$method($rowValue);
-                } elseif ($excelElement instanceof Row) {
-                    $excelWorksheet->getRowDimension($excelElement->getRowIndex())->$method($rowValue);
-                }
-
+                $excelWorksheet->getRowDimension($excelElement->getRowIndex())->$method($rowValue);
             }
         }
     }
