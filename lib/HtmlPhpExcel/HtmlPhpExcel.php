@@ -189,7 +189,7 @@ class HtmlPhpExcel
                     $excelWorksheet->getStyle($rowNumber.':'.$rowNumber)->applyFromArray($rowStylesArray);
                 }
 
-                $excelWorksheet->getCell('A'.$rowNumber); // Fixes RowIterator exception
+                $excelWorksheet->getCell('A'.$rowNumber);
                 $this->setDimensionsForRow($excelWorksheet, $excelWorksheet->getRowIterator($rowNumber)->current(), $row);
 
                 // Loop over all cells in row
