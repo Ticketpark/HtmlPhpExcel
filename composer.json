@@ -1,8 +1,8 @@
 {
     "name": "ticketpark/htmlphpexcel",
     "type": "library",
-    "description": "A php library based on PHPExcel to convert html tables to Excel files, including styling.",
-    "keywords": ["html", "tables", "excel", "phpexcel"],
+    "description": "A php library based to convert html tables to Excel files, including styling.",
+    "keywords": ["html", "tables", "excel", "phpexcel", "phpspreadsheet", "fastexcelwriter"],
     "homepage": "https://github.com/Ticketpark/HtmlPhpExcel",
     "license": "MIT",
     "authors": [
@@ -13,7 +13,7 @@
         "ext-json": "*",
         "ext-dom": "*",
         "ext-intl": "*",
-        "avadim/fast-excel-writer": "^4.0"
+        "avadim/fast-excel-writer": "^4.5"
     },
     "require-dev": {
         "phpunit/phpunit": "^9.0",
