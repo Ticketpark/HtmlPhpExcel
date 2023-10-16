@@ -39,8 +39,7 @@ class HtmlPhpExcel
 
     public function __construct(
         private string $htmlStringOrFile
-    )
-    {
+    ) {
         $this->excel = Excel::create();
     }
 
@@ -99,7 +98,7 @@ class HtmlPhpExcel
     private function createExcel(): void
     {
         // Loop over all tables in document
-        foreach($this->document->getTables() as $table){
+        foreach($this->document->getTables() as $table) {
 
             // Handle worksheets
             $this->excel->makeSheet($table->getAttribute('_excel-name'));
@@ -107,10 +106,10 @@ class HtmlPhpExcel
 
             // Loop over all rows
             $rowIndex = 1;
-            foreach($table->getRows() as $row){
+            foreach($table->getRows() as $row) {
 
                 // Loop over all cells in a row
-                foreach($row->getCells() as $cell){
+                foreach($row->getCells() as $cell) {
                     $sheet->writeCell(
                         $cell->getValue(),
                         $this->getStyles($cell)
@@ -131,7 +130,7 @@ class HtmlPhpExcel
 
         if ($attributeStyles = $documentElement->getAttribute('_excel-styles')) {
             if (!is_array($attributeStyles)) {
-                $decodedJson = json_decode($attributeStyles, true);
+                $decodedJson = json_decode($attributeStyles, true, 512, JSON_THROW_ON_ERROR);
                 if (null !== $decodedJson) {
                     $attributeStyles = $decodedJson;
                 }

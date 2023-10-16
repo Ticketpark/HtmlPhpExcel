@@ -7,8 +7,8 @@ use Ticketpark\HtmlPhpExcel\Elements\Document;
 use Ticketpark\HtmlPhpExcel\Elements\Row;
 use Ticketpark\HtmlPhpExcel\Elements\Table;
 
-class Parser {
-
+class Parser
+{
     /**
      * The html string to be parsed
      */
@@ -83,7 +83,7 @@ class Parser {
 
                 $row = new Row();
                 $htmlCells = $xpath->query(
-                     './/td[contains(concat(" ", normalize-space(@class), " "), "'.$this->cellClass.'")]
+                    './/td[contains(concat(" ", normalize-space(@class), " "), "'.$this->cellClass.'")]
                     | .//th[contains(concat(" ", normalize-space(@class), " "), "'.$this->cellClass.'")]',
                     $htmlRow
                 );
@@ -120,4 +120,3 @@ class Parser {
         return $document;
     }
 }
-
