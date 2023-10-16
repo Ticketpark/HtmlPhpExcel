@@ -43,21 +43,21 @@ class Parser {
         }
     }
 
-    public function setTableClass(string $class): self
+    public function setTableClass(?string $class): self
     {
         $this->tableClass = $class;
 
         return $this;
     }
 
-    public function setRowClass(string $class): self
+    public function setRowClass(?string $class): self
     {
         $this->rowClass = $class;
 
         return $this;
     }
 
-    public function setCellClass(string $class): self
+    public function setCellClass(?string $class): self
     {
         $this->cellClass = $class;
 
