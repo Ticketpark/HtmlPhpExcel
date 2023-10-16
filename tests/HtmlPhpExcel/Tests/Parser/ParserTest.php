@@ -3,23 +3,22 @@
 namespace HtmlPhpExcel\Tests\Parser;
 
 use PHPUnit\Framework\TestCase;
-use Ticketpark\HtmlPhpExcel\Exception\HtmlPhpExcelException;
 use Ticketpark\HtmlPhpExcel\Parser\Parser;
 
 class ParserTest extends TestCase
 {
-    private $pathToTestfiles = __DIR__.'/../../../testfiles/';
+    private string $pathToTestfiles = __DIR__.'/../../../testfiles';
 
     public function testSimpleTable()
     {
         $parser = new Parser('<table><tr><td>row1cell1</td><td>row1cell2</td></tr><tr><td>row2cell1</td><td>row2cell2</td></tr></table>');
         $document = $parser->parse();
 
-        $this->assertEquals(1, $document->getTables()->count());
-        $this->assertEquals(2, $document->getTables()->current()->getRows()->count());
+        $this->assertEquals(1, count($document->getTables()));
+        $this->assertEquals(2, count($document->getTables()[0]->getRows()));
 
-        foreach($document->getTables()->current()->getRows() as $row){
-            $this->assertEquals(2, $row->getCells()->count());
+        foreach($document->getTables()[0]->getRows() as $row){
+            $this->assertEquals(2, count($row->getCells()));
         }
     }
 
@@ -32,12 +31,12 @@ class ParserTest extends TestCase
         ');
         $document = $parser->parse();
 
-        $this->assertEquals(2, $document->getTables()->count());
+        $this->assertEquals(2, count($document->getTables()));
         foreach($document->getTables() as $table){
-            $this->assertEquals(2, $table->getRows()->count());
+            $this->assertEquals(2, count($table->getRows()));
 
             foreach($table->getRows() as $row){
-                $this->assertEquals(2, $row->getCells()->count());
+                $this->assertEquals(2, count($row->getCells()));
             }
         }
     }
@@ -51,7 +50,7 @@ class ParserTest extends TestCase
         ');
         $document = $parser->setTableClass('pickme')->parse();
 
-        $this->assertEquals(1, $document->getTables()->count());
+        $this->assertEquals(1, count($document->getTables()));
     }
 
     public function testMultipleTablesWithRowClass()
@@ -64,7 +63,7 @@ class ParserTest extends TestCase
         $document = $parser->setRowClass('pickme')->parse();
 
         foreach($document->getTables() as $table){
-            $this->assertEquals(1, $table->getRows()->count());
+            $this->assertEquals(1, count($table->getRows()));
         }
     }
 
@@ -79,7 +78,7 @@ class ParserTest extends TestCase
 
         foreach($document->getTables() as $table){
             foreach($table->getRows() as $row){
-                $this->assertEquals(1, $row->getCells()->count());
+                $this->assertEquals(1, count($row->getCells()));
             }
         }
     }
@@ -97,12 +96,12 @@ class ParserTest extends TestCase
             ->setCellClass('pickme')
             ->parse();
 
-        $this->assertEquals(1, $document->getTables()->count());
+        $this->assertEquals(1, count($document->getTables()));
         foreach($document->getTables() as $table){
-            $this->assertEquals(1, $table->getRows()->count());
+            $this->assertEquals(1, count($table->getRows()));
 
             foreach($table->getRows() as $row){
-                $this->assertEquals(1, $row->getCells()->count());
+                $this->assertEquals(1, count($row->getCells()));
             }
         }
     }
@@ -120,12 +119,12 @@ class ParserTest extends TestCase
             ->setCellClass('pickme')
             ->parse();
 
-        $this->assertEquals(1, $document->getTables()->count());
+        $this->assertEquals(1, count($document->getTables()));
         foreach($document->getTables() as $table){
-            $this->assertEquals(1, $table->getRows()->count());
+            $this->assertEquals(1, count($table->getRows()));
 
             foreach($table->getRows() as $row){
-                $this->assertEquals(1, $row->getCells()->count());
+                $this->assertEquals(1, count($row->getCells()));
             }
         }
     }
@@ -135,7 +134,7 @@ class ParserTest extends TestCase
         $parser = new Parser('<table><tr><th>row1cell1</th><th>row1cell2</th></tr><tr><td>row2cell1</td><td>row2cell2</td></tr></table>');
         $document = $parser->parse();
 
-        foreach($document->getTables()->current()->getRows() as $key => $row){
+        foreach($document->getTables()[0]->getRows() as $key => $row){
             foreach($row->getCells() as $cell){
                 if (0 === $key) {
                     $this->assertTrue($cell->isHeader());
@@ -172,27 +171,10 @@ class ParserTest extends TestCase
         }
     }
 
-    public function testSetHtml()
+    public function testWithFile()
     {
-        $parser = new Parser();
-        $parser->setHtml('<table></table>');
+        $parser = new Parser($this->pathToTestfiles . '/test.html');
         $document = $parser->parse();
-        $this->assertEquals(1, $document->getTables()->count());
-    }
-
-    public function testSetHtmlFile()
-    {
-        $parser = new Parser();
-        $parser->setHtmlFile($this->pathToTestfiles.'test.html');
-        $document = $parser->parse();
-        $this->assertEquals(1, $document->getTables()->count());
-    }
-
-    public function testExceptionWithoutHtmlContent()
-    {
-        $this->expectException(HtmlPhpExcelException::class);
-
-        $parser = new Parser();
-        $parser->parse();
+        $this->assertEquals(1, count($document->getTables()));
     }
 }
