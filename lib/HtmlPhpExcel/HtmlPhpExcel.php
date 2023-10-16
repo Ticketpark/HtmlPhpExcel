@@ -109,15 +109,27 @@ class HtmlPhpExcel
             foreach($table->getRows() as $row) {
 
                 // Loop over all cells in a row
+                $colIndex = 1;
                 foreach($row->getCells() as $cell) {
+                    $styles = $this->getStyles($cell);
+
                     $sheet->writeCell(
-                        $cell->getValue(),
-                        $this->getStyles($cell)
+                        trim($cell->getValue()),
+                        $styles
                     );
+
+                    if (isset($styles['width'])) {
+                        $sheet->setColWidth($colIndex, $styles['width']);
+                    }
+
+                    if (isset($styles['height'])) {
+                        $sheet->setRowHeight($rowIndex, $styles['height']);
+                    }
+
+                    $colIndex++;
                 }
 
                 $sheet->setRowStyles($rowIndex, $this->getStyles($row));
-
                 $sheet->nextRow();
                 $rowIndex++;
             }
