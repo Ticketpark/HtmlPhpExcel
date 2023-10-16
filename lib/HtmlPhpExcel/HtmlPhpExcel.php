@@ -106,17 +106,42 @@ class HtmlPhpExcel
             $sheet = $this->excel->sheet();
 
             // Loop over all rows
+            $rowIndex = 1;
             foreach($table->getRows() as $row){
-                $rowData = [];
 
                 // Loop over all cells in a row
                 foreach($row->getCells() as $cell){
-                    $rowData[] = $cell->getValue();
+                    $sheet->writeCell(
+                        $cell->getValue(),
+                        $this->getStyles($cell)
+                    );
                 }
 
-                $sheet->writeRow($rowData);
+                $sheet->setRowStyles($rowIndex, $this->getStyles($row));
+
                 $sheet->nextRow();
+                $rowIndex++;
             }
         }
+    }
+
+    private function getStyles(HtmlPhpExcelElement\Element $documentElement): array
+    {
+        $styles = [];
+
+        if ($attributeStyles = $documentElement->getAttribute('_excel-styles')) {
+            if (!is_array($attributeStyles)) {
+                $decodedJson = json_decode($attributeStyles, true);
+                if (null !== $decodedJson) {
+                    $attributeStyles = $decodedJson;
+                }
+            }
+        }
+
+        if (is_array($attributeStyles)) {
+            $styles = $attributeStyles;
+        }
+
+        return $styles;
     }
 }

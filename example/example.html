@@ -3,7 +3,7 @@
 
     <tr>
         <!-- Apply json-encoded styles to cells -->
-        <th _excel-styles='{"font":{"size":16,"color":{"rgb":"FF0000"}}}'>An Excel worksheet</th>
+        <th _excel-styles='{"font-size":16, "font-color":"#FF0000", "font-style":"bold"}'>An Excel worksheet</th>
     </tr>
 
     <tr>
@@ -11,21 +11,21 @@
     </tr>
 
     <!-- Apply json-encoded styles to rows -->
-    <tr _excel-styles='{"fill":{"fillType":"PhpSpreadsheet_Style_Fill::FILL_SOLID","color":{"argb":"4F4F4F"}}}'>
-        <th _excel-styles='{"font":{"color":{"rgb":"FFFFFF"}}}'>Column A</th>
-        <th _excel-styles='{"font":{"color":{"rgb":"FFFFFF"}}}'>Column B</th>
+    <tr _excel-styles='{"fill-color":"#4F4F4F"}'>
+        <th _excel-styles='{"font-color":"#FFFFFF"}'>Column A</th>
+        <th _excel-styles='{"font-color":"#FFFFFF"}'>Column B</th>
     </tr>
 
     <tr>
         <td>Left align</td>
-        <td _excel-styles='{"alignment":{"horizontal":"PhpSpreadsheet_Style_Alignment::HORIZONTAL_RIGHT"}}'>Right align</td>
+        <td _excel-styles='{"text-align": "right"}'>Right align</td>
     </tr>
 
     <tr>
         <td>5</td>
         <td>6</td>
         <!-- Set explicit cell value types, e.q. to treat numbers as strings -->
-        <td _excel-explicit='PhpSpreadsheet_Cell_DataType::TYPE_STRING'>0022</td>
+        <td _excel-styles='{"format": "@text"}'>0022</td>
     </tr>
 
     <tr>
@@ -36,24 +36,19 @@
     </tr>
 
     <!-- Set row dimensions-->
-    <tr _excel-dimensions='{"row":{"rowHeight":50}}' _excel-styles='{"alignment":{"vertical":"PhpSpreadsheet_Style_Alignment::VERTICAL_CENTER"}}'>
+    <tr _excel-styles='{"height": 50, "text-align": "center"}'>
         <!-- Number formats! -->
-        <td _excel-styles='{"numberFormat":{"formatCode":"PhpSpreadsheet_Style_NumberFormat::FORMAT_NUMBER_00"}}'>25</td>
-        <td _excel-styles='{"numberFormat":{"formatCode":"PhpSpreadsheet_Style_NumberFormat::FORMAT_CURRENCY_USD"}}'>1520.20</td>
+        <td _excel-styles='{"format": "@money"}'>25</td>
+        <td _excel-styles='{"format": "#’##0.00"}'>1520.20</td>
     </tr>
 
     <tr>
         <td></td>
         <td></td>
         <!-- Set column dimensions -->
-        <td _excel-dimensions='{"column":{"width":20}, "row":{"rowHeight":50}}'>No need to fill all cells.</td>
-        <td _excel-dimensions='{"column":{"autoSize":"true"}}'>And no need to care about how many cells there are in each row.</td>
+        <td _excel-styles='{"width: 20", "height": 50}'>No need to fill all cells.</td>
+        <td _excel-styles='{"width": "auto"}'>And no need to care about how many cells there are in each row.</td>
         <td>Ich bin ein Ümläøut.</td>
-    </tr>
-
-    <!-- Merge cells -->
-    <tr>
-        <td colspan="3" rowspan="3">Merge cells!</td>
     </tr>
 
 </table>
