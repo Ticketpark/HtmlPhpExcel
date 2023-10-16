@@ -84,6 +84,11 @@ class HtmlPhpExcel
         $this->excel->save($filename . '.xlsx');
     }
 
+    public function getExcelObject(): Excel
+    {
+        return $this->excel;
+    }
+
     private function parseHtml(): void
     {
         $parser = new Parser($this->htmlStringOrFile);

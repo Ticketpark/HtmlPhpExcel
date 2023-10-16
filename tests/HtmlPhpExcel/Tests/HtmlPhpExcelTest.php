@@ -2,6 +2,7 @@
 
 namespace HtmlPhpExcel\Tests;
 
+use avadim\FastExcelWriter\Excel;
 use PHPUnit\Framework\TestCase;
 use Ticketpark\HtmlPhpExcel\HtmlPhpExcel;
 
@@ -41,5 +42,11 @@ class HtmlPhpExcelTest extends TestCase
         $this->assertTrue(file_exists($file));
 
         unlink($file);
+    }
+
+    public function testItReturnsExcelInstance()
+    {
+        $htmlphpexcel = new HtmlPhpExcel('<table></table>');
+        $this->assertInstanceOf(Excel::class, $htmlphpexcel->getExcelObject());
     }
 }
