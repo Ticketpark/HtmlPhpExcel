@@ -33,6 +33,11 @@ class HtmlPhpExcel
     private array $defaultStyles = [];
 
     /**
+     * The default styles additionally to be applied to header cells (<th>)
+     */
+    private array $defaultHeaderStyles = [];
+
+    /**
      * The document instance which contains the parsed html elements
      */
     private HtmlPhpExcelElement\Document $document;
@@ -71,6 +76,13 @@ class HtmlPhpExcel
     public function setDefaultStyles(array $defaultStyles): self
     {
         $this->defaultStyles = $defaultStyles;
+
+        return $this;
+    }
+
+    public function setDefaultHeaderStyles(array $defaultHeaderStyles): self
+    {
+        $this->defaultHeaderStyles = $defaultHeaderStyles;
 
         return $this;
     }
@@ -129,7 +141,6 @@ class HtmlPhpExcel
             // Loop over all rows
             $rowIndex = 1;
             foreach($table->getRows() as $row) {
-
                 $rowStyles = $this->getStyles($row);
                 $sheet->setRowStyles(
                     $rowIndex,
@@ -139,19 +150,18 @@ class HtmlPhpExcel
                 // Loop over all cells in a row
                 $colIndex = 1;
                 foreach($row->getCells() as $cell) {
-                    $styles = $this->getStyles($cell);
-
+                    $cellStyles = $this->getStyles($cell);
                     $sheet->writeCell(
                         trim($cell->getValue()),
-                        empty($styles) ? null : $styles
+                        empty($cellStyles) ? null : $cellStyles
                     );
 
-                    if (isset($styles['width'])) {
-                        $sheet->setColWidth($colIndex, $styles['width']);
+                    if (isset($cellStyles['width'])) {
+                        $sheet->setColWidth($colIndex, $cellStyles['width']);
                     }
 
-                    if (isset($styles['height'])) {
-                        $sheet->setRowHeight($rowIndex, $styles['height']);
+                    if (isset($cellStyles['height'])) {
+                        $sheet->setRowHeight($rowIndex, $cellStyles['height']);
                     }
 
                     $colIndex++;
@@ -179,6 +189,10 @@ class HtmlPhpExcel
             $styles = $attributeStyles;
         }
 
-        return array_merge($this->defaultStyles, $styles);
+        return array_merge(
+            $this->defaultStyles,
+            ($documentElement instanceof HtmlPhpExcelElement\Cell && $documentElement->isHeader()) ? $this->defaultHeaderStyles : [],
+            $styles
+        );
     }
 }
