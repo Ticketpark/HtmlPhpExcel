@@ -28,6 +28,11 @@ class HtmlPhpExcel
     private ?string $cellClass = null;
 
     /**
+     * The default styles to be applied to all excel cells
+     */
+    private array $defaultStyles = [];
+
+    /**
      * The document instance which contains the parsed html elements
      */
     private HtmlPhpExcelElement\Document $document;
@@ -59,6 +64,13 @@ class HtmlPhpExcel
     public function setCellClass(?string $class): self
     {
         $this->cellClass = $class;
+
+        return $this;
+    }
+
+    public function setDefaultStyles(array $defaultStyles): self
+    {
+        $this->defaultStyles = $defaultStyles;
 
         return $this;
     }
@@ -118,6 +130,12 @@ class HtmlPhpExcel
             $rowIndex = 1;
             foreach($table->getRows() as $row) {
 
+                $rowStyles = $this->getStyles($row);
+                $sheet->setRowStyles(
+                    $rowIndex,
+                    empty($rowStyles) ? null : $rowStyles
+                );
+
                 // Loop over all cells in a row
                 $colIndex = 1;
                 foreach($row->getCells() as $cell) {
@@ -125,7 +143,7 @@ class HtmlPhpExcel
 
                     $sheet->writeCell(
                         trim($cell->getValue()),
-                        $styles
+                        empty($styles) ? null : $styles
                     );
 
                     if (isset($styles['width'])) {
@@ -139,7 +157,6 @@ class HtmlPhpExcel
                     $colIndex++;
                 }
 
-                $sheet->setRowStyles($rowIndex, $this->getStyles($row));
                 $sheet->nextRow();
                 $rowIndex++;
             }
@@ -149,7 +166,6 @@ class HtmlPhpExcel
     private function getStyles(HtmlPhpExcelElement\Element $documentElement): array
     {
         $styles = [];
-
         if ($attributeStyles = $documentElement->getAttribute('_excel-styles')) {
             if (!is_array($attributeStyles)) {
                 $decodedJson = json_decode($attributeStyles, true, 512, JSON_THROW_ON_ERROR);
@@ -163,6 +179,6 @@ class HtmlPhpExcel
             $styles = $attributeStyles;
         }
 
-        return $styles;
+        return array_merge($this->defaultStyles, $styles);
     }
 }
