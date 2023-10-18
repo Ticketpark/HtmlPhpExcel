@@ -35,12 +35,11 @@ class HtmlPhpExcel
     /**
      * The instance of the Excel creator used within this library.
      */
-    private Excel $excel;
+    private ?Excel $excel = null;
 
     public function __construct(
         private string $htmlStringOrFile
     ) {
-        $this->excel = Excel::create();
     }
 
     public function setTableClass(?string $class): self
@@ -64,8 +63,13 @@ class HtmlPhpExcel
         return $this;
     }
 
-    public function process(): self
+    public function process(?Excel $excel = null): self
     {
+        $this->excel = $excel;
+        if (null === $this->excel) {
+            $this->excel = Excel::create();
+        }
+
         $this->parseHtml();
         $this->createExcel();
 
@@ -78,10 +82,11 @@ class HtmlPhpExcel
         $this->excel->download($filename . '.xlsx');
     }
 
-    public function save(string $filename): void
+    public function save(string $filename): bool
     {
         $filename = str_ireplace('.xlsx', '', $filename);
-        $this->excel->save($filename . '.xlsx');
+
+        return $this->excel->save($filename . '.xlsx');
     }
 
     public function getExcelObject(): Excel
