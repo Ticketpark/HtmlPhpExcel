@@ -164,6 +164,11 @@ class HtmlPhpExcel
                         $sheet->setRowHeight($rowIndex, $cellStyles['height']);
                     }
 
+                    $cellComment = $cell->getAttribute('_excel-comment');
+                    if ($cellComment) {
+                        $sheet->addNote(Excel::cellAddress($rowIndex, $colIndex), $cellComment);
+                    }
+
                     $colIndex++;
                 }
 
