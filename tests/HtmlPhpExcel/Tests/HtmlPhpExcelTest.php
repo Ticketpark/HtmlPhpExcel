@@ -4,6 +4,7 @@ namespace HtmlPhpExcel\Tests;
 
 use avadim\FastExcelWriter\Excel;
 use PHPUnit\Framework\TestCase;
+use Ticketpark\HtmlPhpExcel\Exception\InexistentExcelObjectException;
 use Ticketpark\HtmlPhpExcel\HtmlPhpExcel;
 
 /**
@@ -47,6 +48,30 @@ class HtmlPhpExcelTest extends TestCase
     public function testItReturnsExcelInstance()
     {
         $htmlphpexcel = new HtmlPhpExcel('<table></table>');
-        $this->assertInstanceOf(Excel::class, $htmlphpexcel->getExcelObject());
+        $this->assertInstanceOf(Excel::class, $htmlphpexcel->process()->getExcelObject());
+    }
+
+    public function testItThrowsExceptionIfProcessIsNotRunBeforeGettingExcelObject()
+    {
+        $this->expectException(InexistentExcelObjectException::class);
+
+        $htmlphpexcel = new HtmlPhpExcel('<table></table>');
+        $htmlphpexcel->getExcelObject();
+    }
+
+    public function testItThrowsExceptionIfProcessIsNotRunBeforeSave()
+    {
+        $this->expectException(InexistentExcelObjectException::class);
+
+        $htmlphpexcel = new HtmlPhpExcel('<table></table>');
+        $htmlphpexcel->save('foo');
+    }
+
+    public function testItThrowsExceptionIfProcessIsNotRunBeforeDownload()
+    {
+        $this->expectException(InexistentExcelObjectException::class);
+
+        $htmlphpexcel = new HtmlPhpExcel('<table></table>');
+        $htmlphpexcel->download('foo');
     }
 }

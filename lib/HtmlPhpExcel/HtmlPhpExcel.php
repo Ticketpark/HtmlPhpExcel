@@ -4,7 +4,7 @@ namespace Ticketpark\HtmlPhpExcel;
 
 use avadim\FastExcelWriter\Excel;
 use Ticketpark\HtmlPhpExcel\Elements as HtmlPhpExcelElement;
-use Ticketpark\HtmlPhpExcel\Exception\HtmlPhpExcelException;
+use Ticketpark\HtmlPhpExcel\Exception\InexistentExcelObjectException;
 use Ticketpark\HtmlPhpExcel\Parser\Parser;
 
 class HtmlPhpExcel
@@ -103,18 +103,22 @@ class HtmlPhpExcel
     public function download(string $filename): void
     {
         $filename = str_ireplace('.xlsx', '', $filename);
-        $this->excel->download($filename . '.xlsx');
+        $this->getExcelObject()->download($filename . '.xlsx');
     }
 
     public function save(string $filename): bool
     {
         $filename = str_ireplace('.xlsx', '', $filename);
 
-        return $this->excel->save($filename . '.xlsx');
+        return $this->getExcelObject()->save($filename . '.xlsx');
     }
 
     public function getExcelObject(): Excel
     {
+        if (null === $this->excel) {
+            throw new InexistentExcelObjectException('You must run process() before handling the excel object. ');
+        }
+
         return $this->excel;
     }
 
