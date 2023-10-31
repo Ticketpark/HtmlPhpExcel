@@ -61,6 +61,18 @@ You can use any style supported by `fast-excel-writer`, of which the most common
 
 More information (though unfortunately limited) is available in the [docs of FastExcelWriter](https://github.com/aVadim483/fast-excel-writer/blob/master/docs/04-styles.md).
 
+## Adding comments to cells
+
+Example:
+```html
+<table>
+    <tr >
+        <td _excel-comment="This is a comment.">
+            Cell value
+        </td>
+    </tr>
+</table>
+```
 
 ## History
 
