@@ -6,5 +6,4 @@ namespace Ticketpark\HtmlPhpExcel\Exception;
 
 class InexistentExcelObjectException extends \Exception
 {
-
 }
