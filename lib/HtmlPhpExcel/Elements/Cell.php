@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Ticketpark\HtmlPhpExcel\Elements;
 
 class Cell extends BaseElement implements Element

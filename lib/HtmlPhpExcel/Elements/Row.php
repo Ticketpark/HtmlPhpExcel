@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Ticketpark\HtmlPhpExcel\Elements;
 
 class Row extends BaseElement implements Element
