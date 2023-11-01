@@ -1,7 +1,7 @@
 {
     "name": "ticketpark/htmlphpexcel",
     "type": "library",
-    "description": "A php library based to convert html tables to Excel files, including styling.",
+    "description": "A php library to convert html tables to Excel files, including styling.",
     "keywords": ["html", "tables", "excel", "phpexcel", "phpspreadsheet", "fastexcelwriter"],
     "homepage": "https://github.com/Ticketpark/HtmlPhpExcel",
     "license": "MIT",
