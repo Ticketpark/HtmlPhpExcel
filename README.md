@@ -52,6 +52,7 @@ You can use any style supported by `fast-excel-writer`, of which the most common
 * format
 * format-text-wrap
 * height
+* hyperlink
 * text-align
 * text-color
 * text-rotation
@@ -61,7 +62,26 @@ You can use any style supported by `fast-excel-writer`, of which the most common
 
 More information (though unfortunately limited) is available in the [docs of FastExcelWriter](https://github.com/aVadim483/fast-excel-writer/blob/master/docs/04-styles.md).
 
+## Adding links to cells
+
+Links are treated like styles and added with the `hyperlink` key:
+
+Example:
+```html
+<table>
+    <tr>
+        <td _excel-styles='{"hyperlink": "http://www.google.com"}'>
+            Cell value
+        </td>
+    </tr>
+</table>
+```
+
+
+
 ## Adding comments to cells
+
+To add comments, use the `_excel-comment` attribute.
 
 Example:
 ```html
