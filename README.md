@@ -28,7 +28,7 @@ $htmlPhpExcel->process()->save('myFile.xlsx');
 For a more complex example see [example directory](example).
 
 ## Styling
-Styles are set with an html element `_excel-styles`. The attribute expects the content to be in json format.
+Styles are set with an html attribute `_excel-styles`. The attribute expects the content to be in json format.
 
 Example:
 ```html
