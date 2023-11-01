@@ -148,10 +148,12 @@ class HtmlPhpExcel
             $rowIndex = 1;
             foreach($table->getRows() as $row) {
                 $rowStyles = $this->getStyles($row);
-                $sheet->setRowStyles(
-                    $rowIndex,
-                    empty($rowStyles) ? null : $rowStyles
-                );
+                if (!empty($rowStyles)) {
+                    $sheet->setRowStyles(
+                        $rowIndex,
+                        $rowStyles
+                    );
+                }
 
                 // Loop over all cells in a row
                 $colIndex = 1;
