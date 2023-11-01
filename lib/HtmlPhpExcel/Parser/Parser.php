@@ -6,81 +6,58 @@ use Ticketpark\HtmlPhpExcel\Elements\Cell;
 use Ticketpark\HtmlPhpExcel\Elements\Document;
 use Ticketpark\HtmlPhpExcel\Elements\Row;
 use Ticketpark\HtmlPhpExcel\Elements\Table;
-use Ticketpark\HtmlPhpExcel\Exception\HtmlPhpExcelException;
 
-class Parser {
-
+class Parser
+{
     /**
      * The html string to be parsed
-     *
-     * @var string
      */
-    private $html;
+    private string $html;
 
     /**
      * The class attribute the tables must have to be parsed
      * Default is none, which results in all tables.
-     *
-     * @var string
      */
-    private $tableClass;
+    private ?string $tableClass = null;
 
     /**
      * The class attribute the rows (<tr>) must have to be parsed.
      * Default is none, which results in all rows of a parsed table.
-     *
-     * @var string
      */
-    private $rowClass;
+    private ?string $rowClass = null;
 
     /**
      * The class attribute the rows (<td> or <th>) must have to be parsed.
      * Default is none, which results in all cells of a parsed row.
-     *
-     * @var string
      */
-    private $cellClass;
+    private ?string $cellClass = null;
 
     public function __construct(string $htmlStringOrFile = null)
     {
         if (null !== $htmlStringOrFile) {
             if (PHP_MAXPATHLEN >= strlen($htmlStringOrFile) && is_file($htmlStringOrFile)) {
-                $this->setHtmlFile($htmlStringOrFile);
-            } elseif (is_string($htmlStringOrFile)) {
-                $this->setHtml($htmlStringOrFile);
+                $this->html = file_get_contents($htmlStringOrFile);
+            } else {
+                $this->html = $htmlStringOrFile;
             }
         }
     }
 
-    public function setHtml(string $html): self
-    {
-        $this->html = $html;
-
-        return $this;
-    }
-
-    public function setHtmlFile(string $file): self
-    {
-        $this->html = file_get_contents($file);
-
-        return $this;
-    }
-
-    public function setTableClass(string $class = null): self
+    public function setTableClass(?string $class): self
     {
         $this->tableClass = $class;
 
         return $this;
     }
 
-    public function setRowClass(string $class = null): self
+    public function setRowClass(?string $class): self
     {
         $this->rowClass = $class;
 
         return $this;
     }
 
-    public function setCellClass(string $class = null): self
+    public function setCellClass(?string $class): self
     {
         $this->cellClass = $class;
 
@@ -89,10 +66,6 @@ class Parser {
 
     public function parse(): Document
     {
-        if (null === $this->html) {
-            throw new HtmlPhpExcelException('You must provide html content first. Use setHtml() or setHtmlFile().');
-        }
-
         $dom = new \DOMDocument();
         $dom->loadHTML($this->html);
 
@@ -110,7 +83,7 @@ class Parser {
 
                 $row = new Row();
                 $htmlCells = $xpath->query(
-                     './/td[contains(concat(" ", normalize-space(@class), " "), "'.$this->cellClass.'")]
+                    './/td[contains(concat(" ", normalize-space(@class), " "), "'.$this->cellClass.'")]
                     | .//th[contains(concat(" ", normalize-space(@class), " "), "'.$this->cellClass.'")]',
                     $htmlRow
                 );
@@ -147,4 +120,3 @@ class Parser {
         return $document;
     }
 }
-

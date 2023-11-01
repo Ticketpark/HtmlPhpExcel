@@ -2,18 +2,17 @@
 
 namespace HtmlPhpExcel\Tests;
 
+use avadim\FastExcelWriter\Excel;
 use PHPUnit\Framework\TestCase;
-use Ticketpark\HtmlPhpExcel\Exception\HtmlPhpExcelException;
+use Ticketpark\HtmlPhpExcel\Exception\InexistentExcelObjectException;
 use Ticketpark\HtmlPhpExcel\HtmlPhpExcel;
 
 /**
- * HtmlPhpExcelTest
- *
  * This only tests basic behaviour of the class, not the actual content of the excel files.
  */
 class HtmlPhpExcelTest extends TestCase
 {
-    protected $pathToTestfiles;
+    private string $pathToTestfiles;
 
     public function setUp(): void
     {
@@ -46,35 +45,33 @@ class HtmlPhpExcelTest extends TestCase
         unlink($file);
     }
 
-    public function testGetExcelObject()
+    public function testItReturnsExcelInstance()
     {
         $htmlphpexcel = new HtmlPhpExcel('<table></table>');
-        $excelObject = $htmlphpexcel->process()->getExcelObject();
-
-        $this->assertInstanceOf('PhpOffice\PhpSpreadsheet\Spreadsheet', $excelObject);
+        $this->assertInstanceOf(Excel::class, $htmlphpexcel->process()->getExcelObject());
     }
 
-    public function testExceptionOutputWithoutProcess()
+    public function testItThrowsExceptionIfProcessIsNotRunBeforeGettingExcelObject()
     {
-        $this->expectException(HtmlPhpExcelException::class);
-
-        $htmlphpexcel = new HtmlPhpExcel('<table></table>');
-        $htmlphpexcel->output();
-    }
-
-    public function testExceptionSaveWithoutProcess()
-    {
-        $this->expectException(HtmlPhpExcelException::class);
-
-        $htmlphpexcel = new HtmlPhpExcel('<table></table>');
-        $htmlphpexcel->save('foo.xls');
-    }
-
-    public function testExceptionGetObjectWithoutProcess()
-    {
-        $this->expectException(HtmlPhpExcelException::class);
+        $this->expectException(InexistentExcelObjectException::class);
 
         $htmlphpexcel = new HtmlPhpExcel('<table></table>');
         $htmlphpexcel->getExcelObject();
+    }
+
+    public function testItThrowsExceptionIfProcessIsNotRunBeforeSave()
+    {
+        $this->expectException(InexistentExcelObjectException::class);
+
+        $htmlphpexcel = new HtmlPhpExcel('<table></table>');
+        $htmlphpexcel->save('foo');
+    }
+
+    public function testItThrowsExceptionIfProcessIsNotRunBeforeDownload()
+    {
+        $this->expectException(InexistentExcelObjectException::class);
+
+        $htmlphpexcel = new HtmlPhpExcel('<table></table>');
+        $htmlphpexcel->download('foo');
     }
 }

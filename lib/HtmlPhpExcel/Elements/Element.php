@@ -2,4 +2,6 @@
 
 namespace Ticketpark\HtmlPhpExcel\Elements;
 
-interface Element {};
+interface Element
+{
+};

@@ -10,7 +10,7 @@ jobs:
 
     strategy:
       matrix:
-        php: ['7.3', '7.4', '8.0', '8.1', '8.2']
+        php: ['8.0', '8.1', '8.2']
         stability: ['prefer-lowest', 'prefer-stable']
 
     name: PHP ${{ matrix.php }} - ${{ matrix.stability }}
@@ -38,3 +38,6 @@ jobs:
 
       - name: Execute tests
         run: vendor/bin/phpunit --verbose
+
+      - name: Check coding standard
+        run: vendor/bin/php-cs-fixer --no-interaction --dry-run --diff -v fix lib/

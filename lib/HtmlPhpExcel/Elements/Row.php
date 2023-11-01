@@ -1,30 +1,22 @@
 <?php
 
-namespace Ticketpark\HtmlPhpExcel\Elements;
+declare(strict_types=1);
 
-use Doctrine\Common\Collections\ArrayCollection;
+namespace Ticketpark\HtmlPhpExcel\Elements;
 
 class Row extends BaseElement implements Element
 {
-    /**
-     * A collection of cells within the row
-     *
-     * @var \Doctrine\Common\Collections\ArrayCollection
-     */
-    protected $cells;
-
-    public function __construct()
-    {
-        $this->cells = new ArrayCollection();
-        parent::__construct();
-    }
+    private array $cells = [];
 
     public function addCell(Cell $cell): void
     {
-        $this->cells->add($cell);
+        $this->cells[] = $cell;
     }
 
-    public function getCells(): ArrayCollection
+    /**
+     * @return array<Cell>
+     */
+    public function getCells(): array
     {
         return $this->cells;
     }

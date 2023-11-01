@@ -1,32 +1,22 @@
 <?php
 
-namespace Ticketpark\HtmlPhpExcel\Elements;
+declare(strict_types=1);
 
-use Doctrine\Common\Collections\ArrayCollection;
+namespace Ticketpark\HtmlPhpExcel\Elements;
 
 class Document
 {
-    /**
-     * A collection of tables within the document
-     *
-     * @var \Doctrine\Common\Collections\ArrayCollection
-     */
-    protected $tables;
-
-    /**
-     * Constructor
-     */
-    public function __construct()
-    {
-        $this->tables = new ArrayCollection();
-    }
+    private array $tables = [];
 
     public function addTable(Table $table): void
     {
-        $this->tables->add($table);
+        $this->tables[] = $table;
     }
 
-    public function getTables(): ArrayCollection
+    /**
+     * @return array<Table>
+     */
+    public function getTables(): array
     {
         return $this->tables;
     }
