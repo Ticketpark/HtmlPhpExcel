@@ -191,9 +191,9 @@ class HtmlPhpExcel
         $styles = [];
         if ($attributeStyles = $documentElement->getAttribute('_excel-styles')) {
             if (!is_array($attributeStyles)) {
-                $decodedJson = json_decode($attributeStyles, true, 512, JSON_THROW_ON_ERROR);
-                if (null !== $decodedJson) {
-                    $attributeStyles = $decodedJson;
+                try {
+                    $attributeStyles = json_decode($attributeStyles, true, 512, JSON_THROW_ON_ERROR);
+                } catch (\JsonException) {
                 }
             }
         }
