@@ -4,7 +4,9 @@ declare(strict_types=1);
 
 namespace Ticketpark\HtmlPhpExcel;
 
+use avadim\FastExcelHelper\Helper;
 use avadim\FastExcelWriter\Excel;
+use avadim\FastExcelWriter\Sheet;
 use Ticketpark\HtmlPhpExcel\Elements as HtmlPhpExcelElement;
 use Ticketpark\HtmlPhpExcel\Exception\InexistentExcelObjectException;
 use Ticketpark\HtmlPhpExcel\Parser\Parser;
@@ -158,6 +160,15 @@ class HtmlPhpExcel
                 // Loop over all cells in a row
                 $colIndex = 1;
                 foreach($row->getCells() as $cell) {
+                    $excelCellIndex = Helper::colLetter($colIndex).$rowIndex;
+
+                    // Skip cells withing merge range
+                    while ($this->isMerged($sheet, $excelCellIndex)) {
+                        $colIndex++;
+                        $excelCellIndex = Helper::colLetter($colIndex).$rowIndex;
+                        $sheet->cell($excelCellIndex);
+                    }
+
                     $cellStyles = $this->getStyles($cell);
                     $sheet->writeCell(
                         trim($cell->getValue()),
@@ -177,6 +188,23 @@ class HtmlPhpExcel
                         $sheet->addNote(Excel::cellAddress($rowIndex, $colIndex), $cellComment);
                     }
 
+                    $colspan = $cell->getAttribute('colspan');
+                    $rowspan = $cell->getAttribute('rowspan');
+
+                    if ($colspan || $rowspan) {
+                        if ($colspan) {
+                            $colspan = $colspan - 1;
+                        }
+
+                        if ($rowspan) {
+                            $rowspan = $rowspan - 1;
+                        }
+
+                        $mergeCellsTargetCellIndex = Helper::colLetter($colIndex + $colspan).($rowIndex + $rowspan);
+
+                        $sheet->mergeCells($excelCellIndex.':'.$mergeCellsTargetCellIndex);
+                    }
+
                     $colIndex++;
                 }
 
@@ -184,6 +212,17 @@ class HtmlPhpExcel
                 $rowIndex++;
             }
         }
+    }
+
+    private function isMerged(Sheet $sheet, string $cellAddress): bool
+    {
+        foreach ($sheet->getMergedCells() as $range) {
+            if (Helper::inRange($cellAddress, $range)) {
+                return true;
+            }
+        }
+
+        return false;
     }
 
     private function getStyles(HtmlPhpExcelElement\Element $documentElement): array
