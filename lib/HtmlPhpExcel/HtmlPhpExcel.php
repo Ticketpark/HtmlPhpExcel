@@ -160,15 +160,16 @@ class HtmlPhpExcel
                 // Loop over all cells in a row
                 $colIndex = 1;
                 foreach($row->getCells() as $cell) {
-                    $excelCellIndex = Helper::colLetter($colIndex).$rowIndex;
 
-                    // Skip cells withing merge range
+                    // Skip cells within merged range
+                    $excelCellIndex = Helper::colLetter($colIndex).$rowIndex;
                     while ($this->isMerged($sheet, $excelCellIndex)) {
                         $colIndex++;
                         $excelCellIndex = Helper::colLetter($colIndex).$rowIndex;
                         $sheet->cell($excelCellIndex);
                     }
 
+                    // Write cell
                     $cellStyles = $this->getStyles($cell);
                     $sheet->writeCell(
                         trim($cell->getValue()),
@@ -188,21 +189,16 @@ class HtmlPhpExcel
                         $sheet->addNote(Excel::cellAddress($rowIndex, $colIndex), $cellComment);
                     }
 
+                    // Merge cells, if necessary
                     $colspan = $cell->getAttribute('colspan');
                     $rowspan = $cell->getAttribute('rowspan');
 
                     if ($colspan || $rowspan) {
-                        if ($colspan) {
-                            $colspan = $colspan - 1;
-                        }
-
-                        if ($rowspan) {
-                            $rowspan = $rowspan - 1;
-                        }
+                        $colspan = $colspan ? $colspan - 1 : 0;
+                        $rowspan = $rowspan ? $rowspan - 1 : 0;
 
                         $mergeCellsTargetCellIndex = Helper::colLetter($colIndex + $colspan).($rowIndex + $rowspan);
-
-                        $sheet->mergeCells($excelCellIndex.':'.$mergeCellsTargetCellIndex);
+                        $sheet->mergeCells($excelCellIndex . ':' . $mergeCellsTargetCellIndex);
                     }
 
                     $colIndex++;
