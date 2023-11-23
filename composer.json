@@ -13,6 +13,7 @@
         "ext-json": "*",
         "ext-dom": "*",
         "ext-intl": "*",
+        "avadim/fast-excel-helper": "^1.0.4",
         "avadim/fast-excel-writer": "^4.5"
     },
     "require-dev": {
