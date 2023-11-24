@@ -1,6 +1,6 @@
 # HtmlPhpExcel
 
-[![Build Status](https://github.com/Ticketpark/HtmlPhpExcel/actions/workflows/tests.yml/badge.svg)](https://github.com/Ticketpark/HtmlPhpExcel/actions)
+[![Build Status](https://github.com/Ticketpark/HtmlPhpExcel/actions/workflows/ci.yml/badge.svg)](https://github.com/Ticketpark/HtmlPhpExcel/actions)
 
 This is a php library based on [FastExcelWriter](https://github.com/aVadim483/fast-excel-writer), simplifying converting html tables to excel files. It allows styling right within the html template with specific attributes.
 
