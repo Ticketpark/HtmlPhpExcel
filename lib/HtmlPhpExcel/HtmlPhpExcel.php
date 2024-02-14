@@ -139,6 +139,9 @@ class HtmlPhpExcel
 
     private function createExcel(): void
     {
+        // Remove 1st sheet created automatically with new excel
+        $this->excel->removeSheet(1);
+        
         // Loop over all tables in document
         foreach($this->document->getTables() as $table) {
 
