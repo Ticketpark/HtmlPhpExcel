@@ -139,12 +139,14 @@ class HtmlPhpExcel
 
     private function createExcel(): void
     {
+        // Remove 1st sheet created automatically with new excel
+        $this->excel->removeSheet(1);
+
         // Loop over all tables in document
         foreach($this->document->getTables() as $table) {
 
             // Handle worksheets
-            $this->excel->makeSheet($table->getAttribute('_excel-name'));
-            $sheet = $this->excel->sheet();
+            $sheet = $this->excel->makeSheet($table->getAttribute('_excel-name'));
 
             // Loop over all rows
             $rowIndex = 1;
