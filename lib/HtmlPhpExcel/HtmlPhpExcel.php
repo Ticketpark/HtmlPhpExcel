@@ -142,7 +142,8 @@ class HtmlPhpExcel
         // Remove 1st sheet, which might be created automatically with new excel
         try {
             $this->excel->removeSheet(1);
-        } catch (\Exception) {}
+        } catch (\Exception) {
+        }
 
         // Loop over all tables in document
         foreach($this->document->getTables() as $table) {
