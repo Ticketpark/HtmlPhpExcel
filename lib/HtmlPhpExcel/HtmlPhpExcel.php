@@ -146,14 +146,14 @@ class HtmlPhpExcel
         }
 
         // Loop over all tables in document
-        foreach($this->document->getTables() as $table) {
+        foreach ($this->document->getTables() as $table) {
 
             // Handle worksheets
             $sheet = $this->excel->makeSheet($table->getAttribute('_excel-name'));
 
             // Loop over all rows
             $rowIndex = 1;
-            foreach($table->getRows() as $row) {
+            foreach ($table->getRows() as $row) {
                 $rowStyles = $this->getStyles($row);
                 if (!empty($rowStyles)) {
                     $sheet->setRowStyles(
@@ -164,7 +164,7 @@ class HtmlPhpExcel
 
                 // Loop over all cells in a row
                 $colIndex = 1;
-                foreach($row->getCells() as $cell) {
+                foreach ($row->getCells() as $cell) {
 
                     // Skip cells within merged range
                     $excelCellIndex = Helper::colLetter($colIndex).$rowIndex;

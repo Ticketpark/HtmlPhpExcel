@@ -79,7 +79,7 @@ class Parser
             $table = new Table();
 
             $htmlRows = $xpath->query('.//tr[contains(concat(" ", normalize-space(@class), " "), "'.$this->rowClass.'")]', $htmlTable);
-            foreach($htmlRows as $htmlRow) {
+            foreach ($htmlRows as $htmlRow) {
 
                 $row = new Row();
                 $htmlCells = $xpath->query(
@@ -88,7 +88,7 @@ class Parser
                     $htmlRow
                 );
 
-                foreach($htmlCells as $htmlCell) {
+                foreach ($htmlCells as $htmlCell) {
                     $cell = new Cell();
                     $cell->setValue($htmlCell->nodeValue);
 
