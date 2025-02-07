@@ -52,7 +52,7 @@ class HtmlPhpExcel
     private ?Excel $excel = null;
 
     public function __construct(
-        private string $htmlStringOrFile
+        private readonly string $htmlStringOrFile
     ) {
     }
 
@@ -177,7 +177,7 @@ class HtmlPhpExcel
                     // Write cell
                     $cellStyles = $this->getStyles($cell);
                     $sheet->writeCell(
-                        trim($cell->getValue()),
+                        trim((string) $cell->getValue()),
                         empty($cellStyles) ? null : $cellStyles
                     );
 
