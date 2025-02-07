@@ -32,14 +32,12 @@ class Parser
      */
     private ?string $cellClass = null;
 
-    public function __construct(string $htmlStringOrFile = null)
+    public function __construct(string $htmlStringOrFile)
     {
-        if (null !== $htmlStringOrFile) {
-            if (PHP_MAXPATHLEN >= strlen($htmlStringOrFile) && is_file($htmlStringOrFile)) {
-                $this->html = file_get_contents($htmlStringOrFile);
-            } else {
-                $this->html = $htmlStringOrFile;
-            }
+        if (PHP_MAXPATHLEN >= strlen($htmlStringOrFile) && is_file($htmlStringOrFile)) {
+            $this->html = file_get_contents($htmlStringOrFile);
+        } else {
+            $this->html = $htmlStringOrFile;
         }
     }
 
