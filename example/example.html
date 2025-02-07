@@ -23,9 +23,10 @@
     </tr>
 
     <tr>
-        <td>5</td>
-        <td>6</td>
-        <!-- Set explicit cell value types, e.q. to treat numbers as strings -->
+        <!-- For reliable results, set the cell format explicitly for non-text values
+        <-- See https://github.com/aVadim483/fast-excel-writer/blob/master/docs/03-writing.md#cell-formats -->
+        <td _excel-styles='{"format": "@integer"}'>5</td>
+        <td _excel-styles='{"format": "@integer"}'>6</td>
         <td _excel-styles='{"format": "@text"}'>0022</td>
     </tr>
 
