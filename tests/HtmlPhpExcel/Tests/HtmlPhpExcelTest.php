@@ -74,4 +74,44 @@ class HtmlPhpExcelTest extends TestCase
         $htmlphpexcel = new HtmlPhpExcel('<table></table>');
         $htmlphpexcel->download('foo');
     }
+
+    public function testItHandlesRowStyles()
+    {
+        if (!is_writable($this->pathToTestfiles)) {
+            $this->markTestSkipped(
+                sprintf('The directory %s must be writable for this test to run.', realpath($this->pathToTestfiles))
+            );
+        }
+
+        $file = $this->pathToTestfiles.'test_row_styles.xlsx';
+        if (file_exists($file)) {
+            if (!is_writable($file)) {
+                $this->markTestSkipped(
+                    sprintf('The file %s must be writable for this test to run.', realpath($file))
+                );
+            }
+            unlink($file);
+        }
+
+        $html = '<table><tr _excel-styles=\'{"font-style": "bold"}\'><td>foo</td><td>bar</td></tr><tr><td>1</td><td>2</td></tr></table>';
+        $htmlphpexcel = new HtmlPhpExcel($html);
+        $htmlphpexcel->process()->save($file);
+
+        $this->assertFileExists($file);
+        $this->assertStringContainsString('<b/>', $this->readFromXlsx($file, 'xl/styles.xml'));
+
+        unlink($file);
+    }
+
+    private function readFromXlsx(string $file, string $path): string
+    {
+        $zip = new \ZipArchive();
+        $zip->open($file);
+        $content = $zip->getFromName($path);
+        $zip->close();
+
+        $this->assertNotFalse($content, sprintf('Could not read %s from %s', $path, $file));
+
+        return $content;
+    }
 }

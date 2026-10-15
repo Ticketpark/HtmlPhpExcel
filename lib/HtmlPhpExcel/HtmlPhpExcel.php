@@ -145,6 +145,11 @@ class HtmlPhpExcel
         } catch (\Exception) {
         }
 
+        // setRowStyles() was removed in avadim/fast-excel-writer v6.9.
+        // Its direct replacement setRowDataStyle() only exists as of v6.1,
+        // so keep a fallback for older supported versions.
+        $supportsSetRowDataStyle = method_exists(Sheet::class, 'setRowDataStyle');
+
         // Loop over all tables in document
         foreach ($this->document->getTables() as $table) {
 
@@ -156,10 +161,11 @@ class HtmlPhpExcel
             foreach ($table->getRows() as $row) {
                 $rowStyles = $this->getStyles($row);
                 if (!empty($rowStyles)) {
-                    $sheet->setRowStyles(
-                        $rowIndex,
-                        $rowStyles
-                    );
+                    if ($supportsSetRowDataStyle) {
+                        $sheet->setRowDataStyle($rowIndex, $rowStyles);
+                    } else {
+                        $sheet->setRowStyles($rowIndex, $rowStyles);
+                    }
                 }
 
                 // Loop over all cells in a row

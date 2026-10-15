@@ -17,6 +17,7 @@
         "avadim/fast-excel-writer": "^4.5|^5.0|^6.0"
     },
     "require-dev": {
+        "ext-zip": "*",
         "phpunit/phpunit": "^9.0",
         "friendsofphp/php-cs-fixer": "^3.35",
         "rector/rector": "^1.2"
